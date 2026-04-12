@@ -1,0 +1,72 @@
+{
+  "currentCourse": {
+    "id": "1",
+    "title": "Advanced Machine Learning & AI",
+    "progress": 68,
+    "nextLesson": "Transformer Models & Attention Mechanisms"
+  },
+  "studyHours": 142,
+  "certificates": 3,
+  "purchasedCourses": [
+    {
+      "id": "1",
+      "title": "Advanced Machine Learning & AI",
+      "progress": 68,
+      "instructor": "Prof. Sarah Chen",
+      "image": "/images/courses/ml-ai.jpg"
+    },
+    {
+      "id": "2",
+      "title": "Data Science & Business Analytics",
+      "progress": 100,
+      "instructor": "Dr. James Mitchell",
+      "image": "/images/courses/data-science.jpg"
+    },
+    {
+      "id": "4",
+      "title": "UX Design Masterclass",
+      "progress": 45,
+      "instructor": "Marie Dubois",
+      "image": "/images/courses/ux-design.jpg"
+    }
+  ],
+  "shortlist": [
+    {
+      "id": "3",
+      "title": "FinTech Innovation & Digital Banking",
+      "price": 2199,
+      "instructor": "Prof. Elena Rodriguez",
+      "image": "/images/courses/fintech.jpg"
+    },
+    {
+      "id": "9",
+      "title": "Quantum Computing Fundamentals",
+      "price": 2999,
+      "instructor": "Prof. Hiroshi Tanaka",
+      "image": "/images/courses/quantum.jpg"
+    }
+  ],
+  "recommended": [
+    {
+      "id": "5",
+      "title": "Cybersecurity Essentials",
+      "price": 1999,
+      "rating": 4.6,
+      "image": "/images/courses/cybersecurity.jpg"
+    },
+    {
+      "id": "7",
+      "title": "Sustainable Development & ESG",
+      "price": 1799,
+      "rating": 4.7,
+      "image": "/images/courses/sustainability.jpg"
+    },
+    {
+      "id": "10",
+      "title": "Creative Leadership & Innovation",
+      "price": 2099,
+      "rating": 4.6,
+      "image": "/images/courses/leadership.jpg"
+    }
+  ]
+}

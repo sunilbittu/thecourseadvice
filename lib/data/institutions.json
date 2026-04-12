@@ -1,0 +1,44 @@
+[
+  {
+    "id": "1",
+    "name": "London School of Economics",
+    "logo": "/images/institutions/lse.png",
+    "location": "London, United Kingdom",
+    "courseCount": 24
+  },
+  {
+    "id": "2",
+    "name": "MIT Professional Education",
+    "logo": "/images/institutions/mit.png",
+    "location": "Cambridge, USA",
+    "courseCount": 31
+  },
+  {
+    "id": "3",
+    "name": "University of Sydney",
+    "logo": "/images/institutions/sydney.png",
+    "location": "Sydney, Australia",
+    "courseCount": 18
+  },
+  {
+    "id": "4",
+    "name": "ETH Zurich",
+    "logo": "/images/institutions/zurich.png",
+    "location": "Zurich, Switzerland",
+    "courseCount": 22
+  },
+  {
+    "id": "5",
+    "name": "Paris School of Design",
+    "logo": "/images/institutions/paris-design.png",
+    "location": "Paris, France",
+    "courseCount": 15
+  },
+  {
+    "id": "6",
+    "name": "National University of Singapore",
+    "logo": "/images/institutions/nus.png",
+    "location": "Singapore",
+    "courseCount": 20
+  }
+]

@@ -1,0 +1,54 @@
+{
+  "kpis": {
+    "totalViews": 28450,
+    "totalLeads": 1247,
+    "conversionRate": 4.38,
+    "avgTimeOnPage": "3m 42s"
+  },
+  "interestOverTime": [
+    { "month": "Nov", "leads": 89, "views": 2100 },
+    { "month": "Dec", "leads": 102, "views": 2450 },
+    { "month": "Jan", "leads": 134, "views": 3200 },
+    { "month": "Feb", "leads": 148, "views": 3800 },
+    { "month": "Mar", "leads": 167, "views": 4100 },
+    { "month": "Apr", "leads": 112, "views": 3500 }
+  ],
+  "deliveryPreference": [
+    { "type": "Online", "percentage": 62 },
+    { "type": "Hybrid", "percentage": 25 },
+    { "type": "In-Person", "percentage": 13 }
+  ],
+  "topLocations": [
+    { "city": "London", "country": "United Kingdom", "leads": 234 },
+    { "city": "New York", "country": "United States", "leads": 198 },
+    { "city": "Singapore", "country": "Singapore", "leads": 156 },
+    { "city": "Mumbai", "country": "India", "leads": 134 },
+    { "city": "Sydney", "country": "Australia", "leads": 112 }
+  ],
+  "coursePerformance": [
+    {
+      "id": "2",
+      "title": "Data Science & Business Analytics",
+      "views": 12400,
+      "leads": 567,
+      "conversion": 4.57,
+      "trend": "up"
+    },
+    {
+      "id": "6",
+      "title": "Global Business Strategy",
+      "views": 8200,
+      "leads": 312,
+      "conversion": 3.8,
+      "trend": "up"
+    },
+    {
+      "id": "new-1",
+      "title": "Behavioural Economics",
+      "views": 3400,
+      "leads": 89,
+      "conversion": 2.62,
+      "trend": "stable"
+    }
+  ]
+}

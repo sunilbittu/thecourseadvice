@@ -1,0 +1,65 @@
+[
+  {
+    "id": "1",
+    "name": "Artificial Intelligence",
+    "icon": "brain",
+    "courseCount": 45,
+    "image": "/images/categories/ai.jpg"
+  },
+  {
+    "id": "2",
+    "name": "Data Science",
+    "icon": "chart-bar",
+    "courseCount": 38,
+    "image": "/images/categories/data-science.jpg"
+  },
+  {
+    "id": "3",
+    "name": "Finance",
+    "icon": "trending-up",
+    "courseCount": 29,
+    "image": "/images/categories/finance.jpg"
+  },
+  {
+    "id": "4",
+    "name": "Design",
+    "icon": "palette",
+    "courseCount": 22,
+    "image": "/images/categories/design.jpg"
+  },
+  {
+    "id": "5",
+    "name": "Technology",
+    "icon": "cpu",
+    "courseCount": 56,
+    "image": "/images/categories/technology.jpg"
+  },
+  {
+    "id": "6",
+    "name": "Business",
+    "icon": "briefcase",
+    "courseCount": 41,
+    "image": "/images/categories/business.jpg"
+  },
+  {
+    "id": "7",
+    "name": "Sustainability",
+    "icon": "leaf",
+    "courseCount": 15,
+    "image": "/images/categories/sustainability.jpg"
+  },
+  {
+    "id": "8",
+    "name": "Marketing",
+    "icon": "megaphone",
+    "courseCount": 27,
+    "image": "/images/categories/marketing.jpg"
+  },
+  {
+    "id": "9",
+    "name": "Leadership",
+    "icon": "users",
+    "courseCount": 19,
+    "image": "/images/categories/leadership.jpg"
+  }
+]

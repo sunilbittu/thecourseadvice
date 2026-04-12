@@ -1,0 +1,74 @@
+{
+  "totalLeads": 1247,
+  "activeCourses": 8,
+  "interestedStudents": 3450,
+  "recentLeads": [
+    {
+      "id": "l1",
+      "name": "Amara Okafor",
+      "email": "amara.o@email.com",
+      "course": "Data Science & Business Analytics",
+      "date": "2026-04-10",
+      "status": "new"
+    },
+    {
+      "id": "l2",
+      "name": "Liam Fitzgerald",
+      "email": "liam.f@email.com",
+      "course": "Global Business Strategy",
+      "date": "2026-04-09",
+      "status": "contacted"
+    },
+    {
+      "id": "l3",
+      "name": "Yuki Nakamura",
+      "email": "yuki.n@email.com",
+      "course": "Data Science & Business Analytics",
+      "date": "2026-04-09",
+      "status": "enrolled"
+    },
+    {
+      "id": "l4",
+      "name": "Sofia Martinez",
+      "email": "sofia.m@email.com",
+      "course": "Global Business Strategy",
+      "date": "2026-04-08",
+      "status": "new"
+    },
+    {
+      "id": "l5",
+      "name": "Oliver Henriksen",
+      "email": "oliver.h@email.com",
+      "course": "Data Science & Business Analytics",
+      "date": "2026-04-07",
+      "status": "contacted"
+    }
+  ],
+  "myCourses": [
+    {
+      "id": "2",
+      "title": "Data Science & Business Analytics",
+      "students": 3200,
+      "revenue": 245000,
+      "status": "active"
+    },
+    {
+      "id": "6",
+      "title": "Global Business Strategy",
+      "students": 680,
+      "revenue": 187000,
+      "status": "active"
+    },
+    {
+      "id": "new-1",
+      "title": "Behavioural Economics",
+      "students": 0,
+      "revenue": 0,
+      "status": "draft"
+    }
+  ],
+  "monthlyGoal": {
+    "target": 150,
+    "current": 112
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "name": "Career Guides",
+      "description": "Expert advice for navigating career transitions and professional growth",
+      "assetCount": 24
+    },
+    {
+      "id": "2",
+      "name": "Study Templates",
+      "description": "Structured templates to optimize your learning journey",
+      "assetCount": 18
+    },
+    {
+      "id": "3",
+      "name": "Industry Reports",
+      "description": "Data-driven insights on emerging industries and job markets",
+      "assetCount": 12
+    },
+    {
+      "id": "4",
+      "name": "Video Masterclasses",
+      "description": "Free introductory sessions from top instructors",
+      "assetCount": 8
+    }
+  ],
+  "featuredAssets": [
+    {
+      "id": "a1",
+      "title": "2026 AI Career Landscape Report",
+      "type": "guide",
+      "description": "Comprehensive guide to AI career paths, salary benchmarks, and skills in demand for 2026 and beyond.",
+      "image": "/images/resources/ai-career.jpg",
+      "downloadUrl": "/downloads/ai-career-report-2026.pdf"
+    },
+    {
+      "id": "a2",
+      "title": "Data Science Learning Roadmap",
+      "type": "template",
+      "description": "A structured 6-month study plan covering statistics, Python, ML, and portfolio building.",
+      "image": "/images/resources/ds-roadmap.jpg",
+      "downloadUrl": "/downloads/ds-roadmap.pdf"
+    },
+    {
+      "id": "a3",
+      "title": "Introduction to Transformer Models",
+      "type": "video",
+      "description": "Free 45-minute masterclass on understanding attention mechanisms and transformer architectures.",
+      "image": "/images/resources/transformers.jpg",
+      "downloadUrl": "/videos/transformers-intro"
+    },
+    {
+      "id": "a4",
+      "title": "Course Comparison Worksheet",
+      "type": "tool",
+      "description": "Interactive spreadsheet template to compare courses across price, duration, outcomes, and reviews.",
+      "image": "/images/resources/comparison.jpg",
+      "downloadUrl": "/downloads/course-comparison.xlsx"
+    }
+  ],
+  "scholarlyTools": [
+    {
+      "id": "t1",
+      "name": "Course Matcher",
+      "description": "AI-powered tool that recommends courses based on your career goals and learning style.",
+      "icon": "sparkles",
+      "url": "/tools/course-matcher"
+    },
+    {
+      "id": "t2",
+      "name": "ROI Calculator",
+      "description": "Estimate the return on investment for any course based on salary uplift data.",
+      "icon": "calculator",
+      "url": "/tools/roi-calculator"
+    },
+    {
+      "id": "t3",
+      "name": "Study Planner",
+      "description": "Create a personalized study schedule that fits around your work commitments.",
+      "icon": "calendar",
+      "url": "/tools/study-planner"
+    }
+  ]
+}
