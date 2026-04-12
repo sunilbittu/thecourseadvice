@@ -1,11 +1,6 @@
 import { Course } from "@/lib/types";
 import CourseDetailClient from "./course-detail-client";
-
-async function getCourse(slug: string): Promise<Course | null> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/courses/${slug}`, { cache: "no-store" });
-  if (!res.ok) return null;
-  return res.json();
-}
+import coursesData from "@/lib/data/courses.json";
 
 export default async function CourseDetailPage({
   params,
@@ -13,7 +8,7 @@ export default async function CourseDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const course = await getCourse(slug);
+  const course = (coursesData as Course[]).find((c) => c.slug === slug) ?? null;
 
   if (!course) {
     return (

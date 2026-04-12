@@ -1,12 +1,8 @@
 import { InstitutionDashboardData } from "@/lib/types";
 import InstitutionClient from "./institution-client";
-
-async function getInstitutionData(): Promise<InstitutionDashboardData> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/institution`, { cache: "no-store" });
-  return res.json();
-}
+import institutionDashboardData from "@/lib/data/institution-dashboard.json";
 
 export default async function InstitutionDashboardPage() {
-  const data = await getInstitutionData();
+  const data = institutionDashboardData as InstitutionDashboardData;
   return <InstitutionClient data={data} />;
 }

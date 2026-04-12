@@ -1,12 +1,8 @@
 import { AnalyticsData } from "@/lib/types";
 import AnalyticsClient from "./analytics-client";
-
-async function getAnalytics(): Promise<AnalyticsData> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/institution/analytics`, { cache: "no-store" });
-  return res.json();
-}
+import analyticsData from "@/lib/data/analytics.json";
 
 export default async function AnalyticsPage() {
-  const data = await getAnalytics();
+  const data = analyticsData as AnalyticsData;
   return <AnalyticsClient data={data} />;
 }
