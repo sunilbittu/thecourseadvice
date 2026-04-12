@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import institutions from "@/lib/data/institutions.json";
+import { getInstitutions } from "@/lib/db/queries";
 
 export async function GET() {
+  const institutions = await getInstitutions();
   return NextResponse.json(institutions);
 }

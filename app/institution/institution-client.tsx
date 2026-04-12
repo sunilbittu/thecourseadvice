@@ -1,12 +1,30 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { InstitutionDashboardData } from "@/lib/types";
 import { AnimatedSection, StaggerChildren } from "@/components/animated-section";
 import Counter from "@/components/counter";
 import { Users, BookOpen, Heart, Target, ArrowRight, BarChart3, Plus, MoreHorizontal } from "lucide-react";
 
-export default function InstitutionClient({ data }: { data: InstitutionDashboardData }) {
+export default function InstitutionClient({ data: initialData }: { data: InstitutionDashboardData }) {
+  const [data, setData] = useState(initialData);
+
+  const updateLeadStatus = async (leadId: string, status: "new" | "contacted" | "enrolled") => {
+    const res = await fetch(`/api/leads/${leadId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status }),
+    });
+    if (res.ok) {
+      setData((prev) => ({
+        ...prev,
+        recentLeads: prev.recentLeads.map((l) =>
+          l.id === leadId ? { ...l, status } : l
+        ),
+      }));
+    }
+  };
   const goalProgress = Math.round((data.monthlyGoal.current / data.monthlyGoal.target) * 100);
 
   return (
@@ -15,7 +33,6 @@ export default function InstitutionClient({ data }: { data: InstitutionDashboard
       <section className="px-8 pt-8 pb-4">
         <div className="max-w-[1440px] mx-auto flex items-end justify-between">
           <div className="editorial-margins">
-            <p className="label-caps text-surface-tint mb-3 tracking-[0.3em]">Institution</p>
             <h1 className="font-heading text-[2.75rem] font-extrabold tracking-[-0.02em] text-on-surface mb-2">
               Dashboard
             </h1>
@@ -28,9 +45,12 @@ export default function InstitutionClient({ data }: { data: InstitutionDashboard
             >
               <BarChart3 className="w-4 h-4" /> Analytics
             </Link>
-            <button className="flex items-center gap-2 px-5 py-3 rounded-xl bg-surface-tint text-white text-sm font-semibold hover:brightness-110 transition-all">
+            <Link
+              href="/institution/courses/new"
+              className="flex items-center gap-2 px-5 py-3 rounded-xl bg-surface-tint text-white text-sm font-semibold hover:brightness-110 transition-all"
+            >
               <Plus className="w-4 h-4" /> New Course
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -45,7 +65,7 @@ export default function InstitutionClient({ data }: { data: InstitutionDashboard
               { icon: Heart, label: "Interested Students", value: data.interestedStudents, color: "warning" },
               { icon: Target, label: "Monthly Goal", value: goalProgress, suffix: "%", color: "secondary" },
             ].map((stat) => (
-              <div key={stat.label} className="bg-white rounded-2xl p-7 ghost-border stat-card card-hover">
+              <div key={stat.label} className="bg-white rounded-2xl p-7 ghost-border card-hover">
                 <div className="flex items-center gap-3 mb-4">
                   <div className={`w-11 h-11 rounded-xl bg-${stat.color}/10 flex items-center justify-center`}>
                     <stat.icon className={`w-5 h-5 text-${stat.color}`} />
@@ -103,8 +123,15 @@ export default function InstitutionClient({ data }: { data: InstitutionDashboard
                           <td className="px-4 py-4 text-sm text-on-surface-variant max-w-[180px] truncate">{lead.course}</td>
                           <td className="px-4 py-4 text-sm text-on-surface-variant">{lead.date}</td>
                           <td className="px-4 py-4">
-                            <span
-                              className={`inline-block rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider ${
+                            <select
+                              value={lead.status}
+                              onChange={(e) =>
+                                updateLeadStatus(
+                                  lead.id,
+                                  e.target.value as "new" | "contacted" | "enrolled"
+                                )
+                              }
+                              className={`rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider border-none cursor-pointer ${
                                 lead.status === "enrolled"
                                   ? "bg-success/10 text-success"
                                   : lead.status === "contacted"
@@ -112,8 +139,10 @@ export default function InstitutionClient({ data }: { data: InstitutionDashboard
                                   : "bg-surface-tint/10 text-surface-tint"
                               }`}
                             >
-                              {lead.status}
-                            </span>
+                              <option value="new">New</option>
+                              <option value="contacted">Contacted</option>
+                              <option value="enrolled">Enrolled</option>
+                            </select>
                           </td>
                         </tr>
                       ))}
@@ -130,7 +159,7 @@ export default function InstitutionClient({ data }: { data: InstitutionDashboard
               </div>
               <div className="space-y-4">
                 {data.myCourses.map((course) => (
-                  <div key={course.id} className="group bg-white rounded-2xl p-6 ghost-border card-hover">
+                  <Link key={course.id} href={`/institution/courses/${course.id}/edit`} className="group block bg-white rounded-2xl p-6 ghost-border card-hover">
                     <div className="flex items-start justify-between mb-3">
                       <h3 className="font-heading text-[1.05rem] font-bold text-on-surface group-hover:text-surface-tint transition-colors">
                         {course.title}
@@ -153,7 +182,7 @@ export default function InstitutionClient({ data }: { data: InstitutionDashboard
                       </span>
                       <span className="font-semibold text-on-surface">${course.revenue.toLocaleString()}</span>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </AnimatedSection>

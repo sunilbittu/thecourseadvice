@@ -1,7 +1,7 @@
 "use client";
 
 import { ResourcesData } from "@/lib/types";
-import { AnimatedSection, StaggerChildren, ParallaxElement } from "@/components/animated-section";
+import { AnimatedSection, StaggerChildren } from "@/components/animated-section";
 import HeroText from "@/components/hero-text";
 import { BookOpen, FileText, Video, Wrench, Download, ArrowRight, Sparkles } from "lucide-react";
 
@@ -23,14 +23,11 @@ export default function ResourcesClient({ data }: { data: ResourcesData }) {
   return (
     <main className="flex-1 page-enter">
       {/* Hero */}
-      <section className="relative py-24 px-8 overflow-hidden">
-        <ParallaxElement className="absolute top-10 right-[20%] w-[400px] h-[400px] bg-surface-tint/[0.05] blur-orb" speed={-20}><span /></ParallaxElement>
-        <ParallaxElement className="absolute bottom-0 left-[15%] w-[300px] h-[300px] bg-secondary-container/[0.08] blur-orb" speed={-15}><span /></ParallaxElement>
-
-        <div className="max-w-[1440px] mx-auto relative z-10">
+      <section className="py-24 px-8">
+        <div className="max-w-[1440px] mx-auto">
           <div className="editorial-margins">
             <AnimatedSection y={0}>
-              <p className="label-caps text-surface-tint mb-5 tracking-[0.3em]">Resources</p>
+              <p className="text-xs font-semibold text-surface-tint mb-5 tracking-[0.15em] uppercase">Resources</p>
             </AnimatedSection>
             <h1 className="font-heading text-[3.5rem] font-extrabold leading-[1.05] tracking-[-0.03em] text-on-surface mb-6 max-w-3xl">
               <HeroText text="The Scholarly Hub" />

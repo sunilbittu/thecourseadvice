@@ -1,8 +1,11 @@
-import { DashboardData } from "@/lib/types";
+export const dynamic = "force-dynamic";
+
 import MyCoursesClient from "./my-courses-client";
-import dashboardData from "@/lib/data/dashboard.json";
+import { getDashboardData } from "@/lib/db/queries";
+import { getAuth } from "@/lib/auth";
 
 export default async function MyCoursesPage() {
-  const data = dashboardData as DashboardData;
+  const { userId } = await getAuth();
+  const data = await getDashboardData(userId ?? "1");
   return <MyCoursesClient data={data} />;
 }

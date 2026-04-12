@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import resources from "@/lib/data/resources.json";
+import { getResourcesData } from "@/lib/db/queries";
 
 export async function GET() {
-  return NextResponse.json(resources);
+  const data = await getResourcesData();
+  return NextResponse.json(data);
 }

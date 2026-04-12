@@ -21,7 +21,6 @@ export default function AnalyticsClient({ data }: { data: AnalyticsData }) {
             <ArrowLeft className="w-4 h-4" /> Back to Dashboard
           </Link>
           <div className="editorial-margins">
-            <p className="label-caps text-surface-tint mb-3 tracking-[0.3em]">Insights</p>
             <h1 className="font-heading text-[2.75rem] font-extrabold tracking-[-0.02em] text-on-surface mb-2">
               Analytics
             </h1>
@@ -40,7 +39,7 @@ export default function AnalyticsClient({ data }: { data: AnalyticsData }) {
               { icon: TrendingUp, label: "Conversion Rate", value: data.kpis.conversionRate, suffix: "%", decimals: 2, color: "success" },
               { icon: Clock, label: "Avg Time on Page", valueStr: data.kpis.avgTimeOnPage, color: "warning" },
             ].map((kpi) => (
-              <div key={kpi.label} className="bg-white rounded-2xl p-7 ghost-border stat-card card-hover">
+              <div key={kpi.label} className="bg-white rounded-2xl p-7 ghost-border card-hover">
                 <div className="flex items-center gap-3 mb-4">
                   <div className={`w-11 h-11 rounded-xl bg-${kpi.color}/10 flex items-center justify-center`}>
                     <kpi.icon className={`w-5 h-5 text-${kpi.color}`} />

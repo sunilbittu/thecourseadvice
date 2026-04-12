@@ -12,7 +12,6 @@ export default function DashboardClient({ data }: { data: DashboardData }) {
       {/* Header */}
       <section className="px-8 pt-8 pb-4">
         <div className="max-w-[1440px] mx-auto editorial-margins">
-          <p className="label-caps text-surface-tint mb-3 tracking-[0.3em]">Dashboard</p>
           <h1 className="font-heading text-[2.75rem] font-extrabold tracking-[-0.02em] text-on-surface mb-2">
             Welcome back
           </h1>
@@ -24,7 +23,7 @@ export default function DashboardClient({ data }: { data: DashboardData }) {
         <div className="max-w-[1440px] mx-auto">
           {/* Stats Row */}
           <StaggerChildren className="grid grid-cols-3 gap-6 mb-14" stagger={0.08}>
-            <div className="bg-white rounded-2xl p-7 ghost-border stat-card card-hover">
+            <div className="bg-white rounded-2xl p-7 ghost-border card-hover">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-11 h-11 rounded-xl bg-surface-tint/10 flex items-center justify-center">
                   <Clock className="w-5 h-5 text-surface-tint" />
@@ -35,7 +34,7 @@ export default function DashboardClient({ data }: { data: DashboardData }) {
                 <Counter value={data.studyHours} />
               </p>
             </div>
-            <div className="bg-white rounded-2xl p-7 ghost-border stat-card card-hover">
+            <div className="bg-white rounded-2xl p-7 ghost-border card-hover">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-11 h-11 rounded-xl bg-success/10 flex items-center justify-center">
                   <Award className="w-5 h-5 text-success" />
@@ -46,7 +45,7 @@ export default function DashboardClient({ data }: { data: DashboardData }) {
                 <Counter value={data.certificates} />
               </p>
             </div>
-            <div className="bg-white rounded-2xl p-7 ghost-border stat-card card-hover">
+            <div className="bg-white rounded-2xl p-7 ghost-border card-hover">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-11 h-11 rounded-xl bg-warning/10 flex items-center justify-center">
                   <TrendingUp className="w-5 h-5 text-warning" />
@@ -61,11 +60,8 @@ export default function DashboardClient({ data }: { data: DashboardData }) {
 
           {/* Continue Learning */}
           <AnimatedSection className="mb-14">
-            <div className="relative bg-gradient-to-br from-primary via-primary-container to-surface-tint rounded-3xl p-10 overflow-hidden">
-              <div className="absolute inset-0 opacity-10">
-                <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px] bg-white rounded-full blur-[80px]" />
-              </div>
-              <div className="relative z-10 flex items-center justify-between">
+            <div className="bg-primary rounded-3xl p-10">
+              <div className="flex items-center justify-between">
                 <div className="flex-1 max-w-xl">
                   <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/50 mb-3">Continue Learning</p>
                   <h2 className="font-heading text-[1.75rem] font-bold text-white mb-2">{data.currentCourse.title}</h2>
@@ -82,7 +78,7 @@ export default function DashboardClient({ data }: { data: DashboardData }) {
                     </div>
                   </div>
                 </div>
-                <button className="w-16 h-16 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center hover:bg-white/25 transition-colors">
+                <button className="w-16 h-16 rounded-2xl bg-white/15 flex items-center justify-center hover:bg-white/25 transition-colors">
                   <Play className="w-6 h-6 text-white ml-1" />
                 </button>
               </div>
@@ -105,8 +101,10 @@ export default function DashboardClient({ data }: { data: DashboardData }) {
             <StaggerChildren className="grid grid-cols-3 gap-6" stagger={0.08}>
               {data.purchasedCourses.map((course) => (
                 <div key={course.id} className="group bg-white rounded-2xl ghost-border card-hover overflow-hidden">
-                  <div className="h-36 bg-gradient-to-br from-surface-container to-surface-container-high relative">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary-container/20 to-surface-tint/10" />
+                  <div className="h-36 bg-surface-container-high flex items-center justify-center">
+                    <span className="font-heading text-3xl font-extrabold text-on-surface-variant/20">
+                      {course.title.split(" ").slice(0, 2).map(w => w[0]).join("").toUpperCase()}
+                    </span>
                   </div>
                   <div className="p-6">
                     <h3 className="font-heading text-[1.1rem] font-bold text-on-surface mb-1 group-hover:text-surface-tint transition-colors">
@@ -136,7 +134,11 @@ export default function DashboardClient({ data }: { data: DashboardData }) {
             <StaggerChildren className="grid grid-cols-3 gap-6" stagger={0.08}>
               {data.recommended.map((course) => (
                 <div key={course.id} className="group bg-white rounded-2xl ghost-border card-hover overflow-hidden">
-                  <div className="h-36 bg-gradient-to-br from-primary-container/30 to-secondary-container/20 relative" />
+                  <div className="h-36 bg-surface-container flex items-center justify-center">
+                    <span className="font-heading text-3xl font-extrabold text-on-surface-variant/20">
+                      {course.title.split(" ").slice(0, 2).map(w => w[0]).join("").toUpperCase()}
+                    </span>
+                  </div>
                   <div className="p-6">
                     <h3 className="font-heading text-[1.1rem] font-bold text-on-surface mb-3 group-hover:text-surface-tint transition-colors">
                       {course.title}

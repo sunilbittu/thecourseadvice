@@ -45,7 +45,7 @@ export function AnimatedSection({ children, className = "", delay = 0, y = 60 }:
   }, [delay, y]);
 
   return (
-    <div ref={ref} className={className} style={{ opacity: 0 }}>
+    <div ref={ref} className={`animate-fade-in ${className}`}>
       {children}
     </div>
   );
@@ -97,7 +97,7 @@ export function StaggerChildren({
   }, [childSelector, stagger]);
 
   return (
-    <div ref={ref} className={className}>
+    <div ref={ref} className={`animate-fade-in ${className}`}>
       {children}
     </div>
   );

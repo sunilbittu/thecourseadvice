@@ -2,23 +2,39 @@
 
 import Link from "next/link";
 import { Course, Category, Institution } from "@/lib/types";
-import { AnimatedSection, StaggerChildren, ParallaxElement } from "@/components/animated-section";
+import { AnimatedSection, StaggerChildren } from "@/components/animated-section";
 import Counter from "@/components/counter";
 import HeroText from "@/components/hero-text";
 import MagneticButton from "@/components/magnetic-button";
-import { Search, ArrowRight, Star, Users, BookOpen, Award, MapPin, Clock, Globe } from "lucide-react";
+import {
+  Search, ArrowRight, Star, Users, BookOpen, Award, MapPin, Clock, Globe,
+  Cpu, BarChart3, DollarSign, Palette, Zap, Briefcase, Leaf, Megaphone, Target,
+} from "lucide-react";
 
-const categoryIcons: Record<string, string> = {
-  "Artificial Intelligence": "🧠",
-  "Data Science": "📊",
-  "Finance": "💰",
-  "Design": "🎨",
-  "Technology": "⚡",
-  "Business": "📈",
-  "Sustainability": "🌱",
-  "Marketing": "📣",
-  "Leadership": "🎯",
+const categoryIcons: Record<string, typeof Cpu> = {
+  "Artificial Intelligence": Cpu,
+  "Data Science": BarChart3,
+  "Finance": DollarSign,
+  "Design": Palette,
+  "Technology": Zap,
+  "Business": Briefcase,
+  "Sustainability": Leaf,
+  "Marketing": Megaphone,
+  "Leadership": Target,
 };
+
+function courseInitials(title: string) {
+  return title.split(" ").slice(0, 2).map(w => w[0]).join("").toUpperCase();
+}
+
+const THUMB_COLORS = [
+  "bg-[#1a1a2e] text-[#e0e0e0]",
+  "bg-[#16213e] text-[#a8b4c4]",
+  "bg-[#0f3460] text-[#8db5e0]",
+  "bg-[#1b2838] text-[#c7d5e0]",
+  "bg-[#2d2d3a] text-[#b8b8cc]",
+  "bg-[#1e3a5f] text-[#89b4d4]",
+];
 
 export default function HomeClient({
   courses,
@@ -32,17 +48,12 @@ export default function HomeClient({
   return (
     <main className="flex-1 page-enter">
       {/* ─── HERO ─── */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        {/* Decorative orbs */}
-        <ParallaxElement className="absolute top-20 right-[15%] w-[500px] h-[500px] bg-surface-tint/[0.06] blur-orb" speed={-30}><span /></ParallaxElement>
-        <ParallaxElement className="absolute bottom-10 left-[10%] w-[350px] h-[350px] bg-secondary-container/[0.12] blur-orb" speed={-20}><span /></ParallaxElement>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-fixed/[0.08] blur-orb" />
-
+      <section className="relative min-h-[90vh] flex items-center">
         <div className="max-w-[1440px] mx-auto px-8 w-full relative z-10">
           <div className="editorial-margins">
             <AnimatedSection y={0} delay={0}>
-              <p className="label-caps text-surface-tint mb-6 tracking-[0.3em]">
-                The Scholarly Perspective
+              <p className="text-xs font-semibold text-surface-tint mb-6 tracking-[0.15em] uppercase">
+                CourseAdvice
               </p>
             </AnimatedSection>
 
@@ -57,9 +68,9 @@ export default function HomeClient({
               </p>
             </AnimatedSection>
 
-            {/* Search Bento */}
+            {/* Search */}
             <AnimatedSection delay={0.7} y={30}>
-              <div className="max-w-3xl bg-white rounded-2xl p-2.5 shadow-floating ghost-border">
+              <div className="max-w-3xl bg-white rounded-2xl p-2.5 shadow-editorial ghost-border">
                 <div className="flex items-center gap-2">
                   <div className="flex-1 flex items-center gap-3 bg-surface-container-low rounded-xl px-5 py-4">
                     <Search className="w-5 h-5 text-on-surface-variant shrink-0" />
@@ -89,44 +100,14 @@ export default function HomeClient({
               </div>
             </AnimatedSection>
 
-            {/* Quick Stats */}
+            {/* Quick Stats — inline text, not icon boxes */}
             <AnimatedSection delay={0.9} y={20}>
-              <div className="flex items-center gap-10 mt-14">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-surface-tint/10 flex items-center justify-center">
-                    <BookOpen className="w-5 h-5 text-surface-tint" />
-                  </div>
-                  <div>
-                    <p className="font-heading text-xl font-extrabold text-on-surface">
-                      <Counter value={500} suffix="+" />
-                    </p>
-                    <p className="text-xs text-on-surface-variant">Courses</p>
-                  </div>
-                </div>
-                <div className="w-px h-8 bg-outline-variant/20" />
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-success/10 flex items-center justify-center">
-                    <Users className="w-5 h-5 text-success" />
-                  </div>
-                  <div>
-                    <p className="font-heading text-xl font-extrabold text-on-surface">
-                      <Counter value={25000} suffix="+" />
-                    </p>
-                    <p className="text-xs text-on-surface-variant">Students</p>
-                  </div>
-                </div>
-                <div className="w-px h-8 bg-outline-variant/20" />
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-warning/10 flex items-center justify-center">
-                    <Award className="w-5 h-5 text-warning" />
-                  </div>
-                  <div>
-                    <p className="font-heading text-xl font-extrabold text-on-surface">
-                      <Counter value={50} suffix="+" />
-                    </p>
-                    <p className="text-xs text-on-surface-variant">Institutions</p>
-                  </div>
-                </div>
+              <div className="flex items-center gap-8 mt-14 text-sm text-on-surface-variant">
+                <span><strong className="text-on-surface font-heading"><Counter value={500} suffix="+" /></strong> courses</span>
+                <span className="w-px h-4 bg-outline-variant/30" />
+                <span><strong className="text-on-surface font-heading"><Counter value={25000} suffix="+" /></strong> students</span>
+                <span className="w-px h-4 bg-outline-variant/30" />
+                <span><strong className="text-on-surface font-heading"><Counter value={50} suffix="+" /></strong> institutions</span>
               </div>
             </AnimatedSection>
           </div>
@@ -134,13 +115,12 @@ export default function HomeClient({
       </section>
 
       {/* ─── CATEGORIES ─── */}
-      <section className="py-28 px-8 bg-surface-container-low relative overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-outline-variant/20 to-transparent" />
+      <section className="py-28 px-8 bg-surface-container-low">
+        <div className="absolute left-0 right-0 h-px bg-outline-variant/10" />
         <div className="max-w-[1440px] mx-auto">
           <AnimatedSection>
             <div className="flex items-end justify-between mb-14">
               <div>
-                <p className="label-caps text-surface-tint mb-4 tracking-[0.3em]">Explore</p>
                 <h2 className="font-heading text-[2.75rem] font-extrabold leading-[1.1] tracking-[-0.02em] text-on-surface">
                   Popular Categories
                 </h2>
@@ -155,32 +135,34 @@ export default function HomeClient({
           </AnimatedSection>
 
           <StaggerChildren className="grid grid-cols-3 gap-5" stagger={0.06}>
-            {categories.slice(0, 9).map((cat) => (
-              <Link
-                key={cat.id}
-                href={`/?category=${cat.name}`}
-                className="group bg-white rounded-2xl p-7 card-hover ghost-border relative overflow-hidden"
-              >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-surface-tint/[0.03] rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-surface-tint/[0.06] transition-colors duration-500" />
-                <span className="text-3xl mb-4 block">{categoryIcons[cat.name] || "📚"}</span>
-                <h3 className="font-heading text-lg font-bold text-on-surface mb-1 group-hover:text-surface-tint transition-colors duration-300">
-                  {cat.name}
-                </h3>
-                <p className="text-sm text-on-surface-variant">{cat.courseCount} courses</p>
-                <ArrowRight className="w-4 h-4 text-on-surface-variant absolute bottom-7 right-7 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300" />
-              </Link>
-            ))}
+            {categories.slice(0, 9).map((cat) => {
+              const Icon = categoryIcons[cat.name] || BookOpen;
+              return (
+                <Link
+                  key={cat.id}
+                  href={`/?category=${cat.name}`}
+                  className="group bg-white rounded-2xl p-7 card-hover ghost-border"
+                >
+                  <div className="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center mb-4 group-hover:bg-surface-tint/10 transition-colors duration-300">
+                    <Icon className="w-5 h-5 text-on-surface-variant group-hover:text-surface-tint transition-colors duration-300" />
+                  </div>
+                  <h3 className="font-heading text-lg font-bold text-on-surface mb-1 group-hover:text-surface-tint transition-colors duration-300">
+                    {cat.name}
+                  </h3>
+                  <p className="text-sm text-on-surface-variant">{cat.courseCount} courses</p>
+                </Link>
+              );
+            })}
           </StaggerChildren>
         </div>
       </section>
 
       {/* ─── FEATURED COURSES ─── */}
-      <section className="py-28 px-8 relative">
+      <section className="py-28 px-8">
         <div className="max-w-[1440px] mx-auto">
           <AnimatedSection>
             <div className="flex items-end justify-between mb-14">
               <div>
-                <p className="label-caps text-surface-tint mb-4 tracking-[0.3em]">Featured</p>
                 <h2 className="font-heading text-[2.75rem] font-extrabold leading-[1.1] tracking-[-0.02em] text-on-surface">
                   Trending Courses
                 </h2>
@@ -195,22 +177,23 @@ export default function HomeClient({
           </AnimatedSection>
 
           <StaggerChildren className="grid grid-cols-3 gap-7" stagger={0.08}>
-            {courses.slice(0, 6).map((course) => (
+            {courses.slice(0, 6).map((course, i) => (
               <Link
                 key={course.id}
                 href={`/courses/${course.slug}`}
                 className="group bg-white rounded-2xl shadow-editorial card-hover ghost-border overflow-hidden"
               >
-                {/* Image placeholder with gradient */}
-                <div className="relative h-52 overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary-container/80 to-surface-tint/60" />
-                  <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+                {/* Thumbnail with initials */}
+                <div className={`relative h-52 flex items-center justify-center ${THUMB_COLORS[i % THUMB_COLORS.length]}`}>
+                  <span className="font-heading text-5xl font-extrabold opacity-40">
+                    {courseInitials(course.title)}
+                  </span>
                   <div className="absolute bottom-4 left-5">
-                    <span className="inline-block bg-white/90 backdrop-blur-sm text-on-surface text-[10px] font-bold uppercase tracking-[0.15em] px-3 py-1.5 rounded-full">
+                    <span className="inline-block bg-white text-on-surface text-[10px] font-bold uppercase tracking-[0.15em] px-3 py-1.5 rounded-full">
                       {course.category}
                     </span>
                   </div>
-                  <div className="absolute top-4 right-4 flex items-center gap-1 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full">
+                  <div className="absolute top-4 right-4 flex items-center gap-1 bg-white px-2.5 py-1 rounded-full">
                     <Star className="w-3 h-3 text-warning fill-warning" />
                     <span className="text-xs font-bold text-on-surface">{course.rating}</span>
                   </div>
@@ -249,13 +232,9 @@ export default function HomeClient({
         </div>
       </section>
 
-      {/* ─── STATS BANNER ─── */}
-      <section className="py-24 px-8 bg-gradient-to-br from-primary to-primary-container relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-surface-tint blur-orb" />
-          <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-secondary-container blur-orb" />
-        </div>
-        <div className="max-w-[1440px] mx-auto relative z-10">
+      {/* ─── STATS ─── */}
+      <section className="py-20 px-8 border-y border-outline-variant/10">
+        <div className="max-w-[1440px] mx-auto">
           <StaggerChildren className="grid grid-cols-4 gap-8" stagger={0.1}>
             {[
               { value: 500, suffix: "+", label: "Expert Courses", icon: BookOpen },
@@ -264,13 +243,10 @@ export default function HomeClient({
               { value: 4.8, suffix: "", label: "Average Rating", icon: Star, decimals: 1 },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mx-auto mb-4">
-                  <stat.icon className="w-6 h-6 text-white/80" />
-                </div>
-                <p className="font-heading text-[3rem] font-extrabold text-white leading-none mb-2">
+                <p className="font-heading text-[3rem] font-extrabold text-on-surface leading-none mb-1">
                   <Counter value={stat.value} suffix={stat.suffix} decimals={stat.decimals || 0} />
                 </p>
-                <p className="text-sm text-white/60 font-medium">{stat.label}</p>
+                <p className="text-sm text-on-surface-variant">{stat.label}</p>
               </div>
             ))}
           </StaggerChildren>
@@ -278,11 +254,10 @@ export default function HomeClient({
       </section>
 
       {/* ─── INSTITUTIONS ─── */}
-      <section className="py-28 px-8 bg-surface-container-low relative">
+      <section className="py-28 px-8 bg-surface-container-low">
         <div className="max-w-[1440px] mx-auto">
           <AnimatedSection>
             <div className="text-center mb-16">
-              <p className="label-caps text-surface-tint mb-4 tracking-[0.3em]">Trusted Partners</p>
               <h2 className="font-heading text-[2.75rem] font-extrabold leading-[1.1] tracking-[-0.02em] text-on-surface mb-4">
                 Leading Institutions
               </h2>
@@ -298,8 +273,8 @@ export default function HomeClient({
                 key={inst.id}
                 className="group bg-white rounded-2xl p-6 card-hover ghost-border text-center"
               >
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-surface-container to-surface-container-high mx-auto mb-4 flex items-center justify-center group-hover:from-surface-tint/10 group-hover:to-primary/10 transition-all duration-500">
-                  <span className="font-heading text-lg font-extrabold text-primary/40 group-hover:text-surface-tint transition-colors duration-300">
+                <div className="w-16 h-16 rounded-2xl bg-surface-container-low mx-auto mb-4 flex items-center justify-center group-hover:bg-surface-tint/10 transition-colors duration-300">
+                  <span className="font-heading text-lg font-extrabold text-on-surface-variant/60 group-hover:text-surface-tint transition-colors duration-300">
                     {inst.name.split(" ").map(w => w[0]).join("").slice(0, 2)}
                   </span>
                 </div>
@@ -319,7 +294,6 @@ export default function HomeClient({
         <div className="max-w-[1440px] mx-auto">
           <AnimatedSection>
             <div className="text-center mb-16">
-              <p className="label-caps text-surface-tint mb-4 tracking-[0.3em]">Simple Process</p>
               <h2 className="font-heading text-[2.75rem] font-extrabold leading-[1.1] tracking-[-0.02em] text-on-surface">
                 How It Works
               </h2>
@@ -329,28 +303,30 @@ export default function HomeClient({
           <StaggerChildren className="grid grid-cols-3 gap-8" stagger={0.12}>
             {[
               {
-                step: "01",
+                step: 1,
                 title: "Discover",
                 description: "Browse hundreds of courses from world-class institutions. Filter by category, location, price, and delivery mode.",
+                icon: Search,
               },
               {
-                step: "02",
+                step: 2,
                 title: "Compare & Connect",
                 description: "Read reviews, compare curricula, and show interest to connect directly with institutions for more information.",
+                icon: BarChart3,
               },
               {
-                step: "03",
+                step: 3,
                 title: "Enroll & Learn",
                 description: "Secure your spot with online payment or advance booking. Access your dashboard to track progress and certificates.",
+                icon: BookOpen,
               },
             ].map((item) => (
-              <div key={item.step} className="relative group">
-                <div className="bg-white rounded-3xl p-10 ghost-border card-hover relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-40 h-40 bg-surface-tint/[0.03] rounded-full -translate-y-1/2 translate-x-1/2" />
-                  <span className="font-heading text-[4rem] font-extrabold text-surface-container-highest/60 leading-none block mb-6">
-                    {item.step}
-                  </span>
-                  <h3 className="font-heading text-2xl font-bold text-on-surface mb-3">
+              <div key={item.step} className="group">
+                <div className="bg-white rounded-2xl p-10 ghost-border card-hover">
+                  <div className="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center mb-6">
+                    <item.icon className="w-5 h-5 text-surface-tint" />
+                  </div>
+                  <h3 className="font-heading text-xl font-bold text-on-surface mb-3">
                     {item.title}
                   </h3>
                   <p className="text-[15px] text-on-surface-variant leading-[1.7]">

@@ -1,6 +1,9 @@
-import { Course } from "@/lib/types";
+export const dynamic = "force-dynamic";
+
 import CourseDetailClient from "./course-detail-client";
-import coursesData from "@/lib/data/courses.json";
+import { getCourseBySlug, getEnrollments, getShortlist, trackCourseView } from "@/lib/db/queries";
+import { getAuth } from "@/lib/auth";
+import { after } from "next/server";
 
 export default async function CourseDetailPage({
   params,
@@ -8,7 +11,7 @@ export default async function CourseDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const course = (coursesData as Course[]).find((c) => c.slug === slug) ?? null;
+  const course = await getCourseBySlug(slug);
 
   if (!course) {
     return (
@@ -22,5 +25,34 @@ export default async function CourseDetailPage({
     );
   }
 
-  return <CourseDetailClient course={course} />;
+  // Track page view in the background
+  after(async () => {
+    try {
+      await trackCourseView(course.id, course.institution);
+    } catch {
+      // silently ignore tracking errors
+    }
+  });
+
+  const { userId } = await getAuth();
+  let isEnrolled = false;
+  let isShortlisted = false;
+
+  if (userId) {
+    const [enrollments, shortlist] = await Promise.all([
+      getEnrollments(userId),
+      getShortlist(userId),
+    ]);
+    isEnrolled = enrollments.some((e) => e.courseId === course.id);
+    isShortlisted = shortlist.some((s) => s.courseId === course.id);
+  }
+
+  return (
+    <CourseDetailClient
+      course={course}
+      isEnrolled={isEnrolled}
+      isShortlisted={isShortlisted}
+      isSignedIn={!!userId}
+    />
+  );
 }

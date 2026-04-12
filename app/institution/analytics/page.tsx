@@ -1,8 +1,9 @@
-import { AnalyticsData } from "@/lib/types";
+export const dynamic = "force-dynamic";
+
 import AnalyticsClient from "./analytics-client";
-import analyticsData from "@/lib/data/analytics.json";
+import { getAnalyticsData } from "@/lib/db/queries";
 
 export default async function AnalyticsPage() {
-  const data = analyticsData as AnalyticsData;
+  const data = await getAnalyticsData("1");
   return <AnalyticsClient data={data} />;
 }

@@ -24,7 +24,6 @@ export default function MyCoursesClient({ data }: { data: DashboardData }) {
       {/* Header */}
       <section className="px-8 pt-8 pb-4">
         <div className="max-w-[1440px] mx-auto editorial-margins">
-          <p className="label-caps text-surface-tint mb-3 tracking-[0.3em]">Learning</p>
           <h1 className="font-heading text-[2.75rem] font-extrabold tracking-[-0.02em] text-on-surface mb-2">
             My Courses
           </h1>
@@ -62,9 +61,12 @@ export default function MyCoursesClient({ data }: { data: DashboardData }) {
             <StaggerChildren className="grid grid-cols-2 gap-7" stagger={0.08}>
               {inProgress.map((course) => (
                 <div key={course.id} className="group bg-white rounded-2xl ghost-border card-hover overflow-hidden">
-                  <div className="h-44 bg-gradient-to-br from-primary-container/40 to-surface-tint/20 relative">
+                  <div className="h-44 bg-surface-container-high relative flex items-center justify-center">
+                    <span className="font-heading text-4xl font-extrabold text-on-surface-variant/15">
+                      {course.title.split(" ").slice(0, 2).map(w => w[0]).join("").toUpperCase()}
+                    </span>
                     <div className="absolute bottom-4 right-4">
-                      <button className="w-12 h-12 rounded-xl bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-editorial hover:bg-white transition-colors">
+                      <button className="w-12 h-12 rounded-xl bg-white flex items-center justify-center shadow-editorial hover:bg-surface-container-low transition-colors">
                         <Play className="w-5 h-5 text-surface-tint ml-0.5" />
                       </button>
                     </div>
@@ -128,8 +130,11 @@ export default function MyCoursesClient({ data }: { data: DashboardData }) {
             <StaggerChildren className="grid grid-cols-3 gap-6" stagger={0.08}>
               {data.shortlist.map((course) => (
                 <div key={course.id} className="group bg-white rounded-2xl ghost-border card-hover overflow-hidden">
-                  <div className="h-40 bg-gradient-to-br from-secondary-container/30 to-primary-fixed/20 relative">
-                    <button className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center">
+                  <div className="h-40 bg-surface-container relative flex items-center justify-center">
+                    <span className="font-heading text-3xl font-extrabold text-on-surface-variant/15">
+                      {course.title.split(" ").slice(0, 2).map(w => w[0]).join("").toUpperCase()}
+                    </span>
+                    <button className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white flex items-center justify-center">
                       <Heart className="w-4 h-4 text-destructive fill-destructive" />
                     </button>
                   </div>

@@ -3,13 +3,20 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Search, ChevronDown } from "lucide-react";
+import { Menu, X, Search } from "lucide-react";
+import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 
-const navLinks = [
-  { label: "Courses", href: "/", },
+const publicLinks = [
+  { label: "Courses", href: "/" },
+  { label: "Resources", href: "/resources" },
+];
+
+const studentLinks = [
   { label: "Dashboard", href: "/dashboard" },
   { label: "My Courses", href: "/my-courses" },
-  { label: "Resources", href: "/resources" },
+];
+
+const adminLinks = [
   { label: "Institution", href: "/institution" },
 ];
 
@@ -18,6 +25,14 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const { isSignedIn, user } = useUser();
+
+  const role = (user?.publicMetadata?.role as string) ?? "student";
+  const navLinks = [
+    ...publicLinks,
+    ...(isSignedIn ? studentLinks : []),
+    ...(isSignedIn && role === "institution-admin" ? adminLinks : []),
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -80,13 +95,23 @@ export default function Navbar() {
             <button className="p-2.5 rounded-xl hover:bg-surface-container-high transition-colors text-on-surface-variant hover:text-on-surface">
               <Search className="w-[18px] h-[18px]" />
             </button>
-            <Link
-              href="/settings/profile"
-              className="flex items-center gap-2 pl-3 pr-4 py-2 rounded-xl hover:bg-surface-container-low transition-colors"
-            >
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-secondary-container to-surface-tint" />
-              <span className="text-sm font-medium text-on-surface">Profile</span>
-            </Link>
+            {isSignedIn ? (
+              <div className="flex items-center gap-3">
+                <Link
+                  href="/settings/profile"
+                  className="text-sm font-medium text-on-surface-variant hover:text-on-surface transition-colors"
+                >
+                  Settings
+                </Link>
+                <UserButton />
+              </div>
+            ) : (
+              <SignInButton mode="modal">
+                <button className="flex items-center gap-2 pl-3 pr-4 py-2 rounded-xl bg-surface-tint text-white text-sm font-medium hover:opacity-90 transition-opacity">
+                  Sign In
+                </button>
+              </SignInButton>
+            )}
           </div>
 
           {/* Mobile toggle */}
@@ -122,6 +147,17 @@ export default function Navbar() {
                 </Link>
               );
             })}
+            <div className="pt-2 px-4">
+              {isSignedIn ? (
+                <UserButton />
+              ) : (
+                <SignInButton mode="modal">
+                  <button className="w-full py-3 rounded-xl bg-surface-tint text-white text-sm font-medium">
+                    Sign In
+                  </button>
+                </SignInButton>
+              )}
+            </div>
           </div>
         </div>
       </nav>

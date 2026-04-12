@@ -146,6 +146,25 @@ export interface AnalyticsData {
   }[];
 }
 
+export interface Enrollment {
+  userId: string;
+  courseId: string;
+  progress: number;
+  status: "active" | "completed";
+  stripePaymentId?: string;
+  enrolledAt: string;
+}
+
+export interface Lead {
+  id: string;
+  name: string;
+  email: string;
+  courseId: string;
+  institutionId: string;
+  status: "new" | "contacted" | "enrolled";
+  createdAt: string;
+}
+
 export interface ResourcesData {
   categories: {
     id: string;

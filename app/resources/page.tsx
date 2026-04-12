@@ -1,8 +1,9 @@
-import { ResourcesData } from "@/lib/types";
+export const dynamic = "force-dynamic";
+
 import ResourcesClient from "./resources-client";
-import resourcesData from "@/lib/data/resources.json";
+import { getResourcesData } from "@/lib/db/queries";
 
 export default async function ResourcesPage() {
-  const data = resourcesData as ResourcesData;
+  const data = await getResourcesData();
   return <ResourcesClient data={data} />;
 }

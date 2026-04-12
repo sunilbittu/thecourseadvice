@@ -25,12 +25,8 @@ export default function Footer() {
   return (
     <footer className="bg-primary text-white mt-auto">
       {/* CTA Banner */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.07]">
-          <div className="absolute top-1/2 left-1/4 w-[600px] h-[600px] rounded-full bg-surface-tint blur-[120px]" />
-          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-secondary-container blur-[100px]" />
-        </div>
-        <div className="max-w-[1920px] mx-auto px-12 py-20 relative">
+      <div>
+        <div className="max-w-[1920px] mx-auto px-12 py-20">
           <div className="max-w-2xl">
             <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/50 mb-4">
               Start Your Journey

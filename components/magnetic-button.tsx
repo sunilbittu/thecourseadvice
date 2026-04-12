@@ -3,11 +3,12 @@
 import { useRef, type ReactNode, type MouseEvent } from "react";
 import gsap from "gsap";
 
-interface MagneticButtonProps {
+export interface MagneticButtonProps {
   children: ReactNode;
   className?: string;
   strength?: number;
   onClick?: () => void;
+  type?: "button" | "submit" | "reset";
 }
 
 export default function MagneticButton({
@@ -15,6 +16,7 @@ export default function MagneticButton({
   className = "",
   strength = 0.3,
   onClick,
+  type = "button",
 }: MagneticButtonProps) {
   const ref = useRef<HTMLButtonElement>(null);
 
@@ -40,6 +42,7 @@ export default function MagneticButton({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
+      type={type}
     >
       {children}
     </button>

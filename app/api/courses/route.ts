@@ -1,35 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
-import courses from "@/lib/data/courses.json";
+import { getCourses, createCourse } from "@/lib/db/queries";
+import { getAuth } from "@/lib/auth";
+import { getUserById } from "@/lib/db/queries";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const search = searchParams.get("search")?.toLowerCase();
-  const category = searchParams.get("category");
-  const level = searchParams.get("level");
-  const delivery = searchParams.get("delivery");
+  const search = searchParams.get("search") ?? undefined;
+  const category = searchParams.get("category") ?? undefined;
+  const level = searchParams.get("level") ?? undefined;
+  const delivery = searchParams.get("delivery") ?? undefined;
 
-  let filtered = [...courses];
+  const courses = await getCourses({ search, category, level, delivery });
+  return NextResponse.json(courses);
+}
 
-  if (search) {
-    filtered = filtered.filter(
-      (c) =>
-        c.title.toLowerCase().includes(search) ||
-        c.description.toLowerCase().includes(search) ||
-        c.instructor.toLowerCase().includes(search)
-    );
+export async function POST(request: NextRequest) {
+  const { userId } = await getAuth();
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  if (category) {
-    filtered = filtered.filter((c) => c.category === category);
+  const user = await getUserById(userId);
+  if (!user || user.role !== "institution-admin") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  if (level) {
-    filtered = filtered.filter((c) => c.level === level);
-  }
-
-  if (delivery) {
-    filtered = filtered.filter((c) => c.delivery === delivery);
-  }
-
-  return NextResponse.json(filtered);
+  const body = await request.json();
+  const course = await createCourse(body);
+  return NextResponse.json(course, { status: 201 });
 }

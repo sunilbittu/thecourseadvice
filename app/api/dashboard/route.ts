@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
-import dashboard from "@/lib/data/dashboard.json";
+import { getDashboardData } from "@/lib/db/queries";
+import { getAuth } from "@/lib/auth";
 
 export async function GET() {
-  return NextResponse.json(dashboard);
+  const { userId } = await getAuth();
+  const data = await getDashboardData(userId ?? "1");
+  return NextResponse.json(data);
 }

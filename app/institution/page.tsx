@@ -1,8 +1,9 @@
-import { InstitutionDashboardData } from "@/lib/types";
+export const dynamic = "force-dynamic";
+
 import InstitutionClient from "./institution-client";
-import institutionDashboardData from "@/lib/data/institution-dashboard.json";
+import { getInstitutionDashboard } from "@/lib/db/queries";
 
 export default async function InstitutionDashboardPage() {
-  const data = institutionDashboardData as InstitutionDashboardData;
+  const data = await getInstitutionDashboard("1");
   return <InstitutionClient data={data} />;
 }

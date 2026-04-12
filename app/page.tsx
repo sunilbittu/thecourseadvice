@@ -1,13 +1,14 @@
-import { Course, Category, Institution } from "@/lib/types";
+export const dynamic = "force-dynamic";
+
 import HomeClient from "./home-client";
-import coursesData from "@/lib/data/courses.json";
-import categoriesData from "@/lib/data/categories.json";
-import institutionsData from "@/lib/data/institutions.json";
+import { getCourses, getCategories, getInstitutions } from "@/lib/db/queries";
 
 export default async function HomePage() {
-  const courses = coursesData as Course[];
-  const categories = categoriesData as Category[];
-  const institutions = institutionsData as Institution[];
+  const [courses, categories, institutions] = await Promise.all([
+    getCourses(),
+    getCategories(),
+    getInstitutions(),
+  ]);
 
   return <HomeClient courses={courses} categories={categories} institutions={institutions} />;
 }
