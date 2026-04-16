@@ -165,6 +165,47 @@ export interface Lead {
   createdAt: string;
 }
 
+// ─── Content CRM ────────────────────────────────────────────────
+
+export interface ContentCategory {
+  id: string;
+  name: string;
+  slug: string;
+  color: string;
+}
+
+export interface ContentPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  body: string;
+  coverImage: string;
+  category: string;
+  tags: string[];
+  status: "draft" | "review" | "published" | "archived";
+  authorId: string;
+  authorName: string;
+  institutionId: string;
+  seoTitle: string;
+  seoDescription: string;
+  publishedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ContentCRMData {
+  posts: ContentPost[];
+  categories: ContentCategory[];
+  stats: {
+    total: number;
+    drafts: number;
+    inReview: number;
+    published: number;
+    archived: number;
+  };
+}
+
 export interface ResourcesData {
   categories: {
     id: string;

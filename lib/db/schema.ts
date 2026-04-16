@@ -136,3 +136,36 @@ export const scholarlyTools = pgTable("scholarly_tools", {
   icon: text("icon").notNull(),
   url: text("url").notNull(),
 });
+
+// ─── Content CRM ────────────────────────────────────────────────
+
+export const contentCategories = pgTable("content_categories", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  slug: text("slug").notNull().unique(),
+  color: text("color").notNull().default("#6366f1"),
+});
+
+export const contentPosts = pgTable("content_posts", {
+  id: text("id").primaryKey(),
+  title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
+  excerpt: text("excerpt").notNull().default(""),
+  body: text("body").notNull().default(""),
+  coverImage: text("cover_image").notNull().default(""),
+  category: text("category").notNull(),
+  tags: jsonb("tags").$type<string[]>().notNull().default([]),
+  status: text("status", {
+    enum: ["draft", "review", "published", "archived"],
+  })
+    .notNull()
+    .default("draft"),
+  authorId: text("author_id").notNull(),
+  authorName: text("author_name").notNull(),
+  institutionId: text("institution_id").notNull(),
+  seoTitle: text("seo_title").notNull().default(""),
+  seoDescription: text("seo_description").notNull().default(""),
+  publishedAt: timestamp("published_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});

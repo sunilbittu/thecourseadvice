@@ -10,6 +10,9 @@ import type {
   InstitutionDashboardData,
   AnalyticsData,
   ResourcesData,
+  ContentPost,
+  ContentCategory,
+  ContentCRMData,
 } from "@/lib/types";
 
 // ─── JSON fallback imports ──────────────────────────────────────
@@ -21,6 +24,7 @@ import dashboardJson from "@/lib/data/dashboard.json";
 import institutionDashboardJson from "@/lib/data/institution-dashboard.json";
 import analyticsJson from "@/lib/data/analytics.json";
 import resourcesJson from "@/lib/data/resources.json";
+import contentJson from "@/lib/data/content.json";
 
 // ─── Courses ────────────────────────────────────────────────────
 
@@ -588,4 +592,153 @@ export async function updateCourse(id: string, data: Partial<typeof schema.cours
 
 export async function deleteCourse(id: string) {
   await db.delete(schema.courses).where(eq(schema.courses.id, id));
+}
+
+// ─── Content CRM ───────────────────────────────────────────────
+
+export async function getContentCategories(): Promise<ContentCategory[]> {
+  if (!hasDatabase()) {
+    return contentJson.categories as ContentCategory[];
+  }
+
+  const rows = await db.select().from(schema.contentCategories);
+  return rows.map((r) => ({
+    id: r.id,
+    name: r.name,
+    slug: r.slug,
+    color: r.color,
+  }));
+}
+
+export async function getContentPosts(
+  institutionId: string,
+  filters?: { status?: string; search?: string; category?: string }
+): Promise<ContentPost[]> {
+  if (!hasDatabase()) {
+    let filtered = [...contentJson.posts] as ContentPost[];
+    if (filters?.status) filtered = filtered.filter((p) => p.status === filters.status);
+    if (filters?.category) filtered = filtered.filter((p) => p.category === filters.category);
+    if (filters?.search) {
+      const s = filters.search.toLowerCase();
+      filtered = filtered.filter(
+        (p) =>
+          p.title.toLowerCase().includes(s) ||
+          p.excerpt.toLowerCase().includes(s) ||
+          p.tags.some((t) => t.toLowerCase().includes(s))
+      );
+    }
+    return filtered;
+  }
+
+  const conditions = [eq(schema.contentPosts.institutionId, institutionId)];
+  if (filters?.status) {
+    conditions.push(
+      eq(
+        schema.contentPosts.status,
+        filters.status as "draft" | "review" | "published" | "archived"
+      )
+    );
+  }
+  if (filters?.category) {
+    conditions.push(eq(schema.contentPosts.category, filters.category));
+  }
+  if (filters?.search) {
+    conditions.push(
+      sql`(${schema.contentPosts.title} ILIKE ${"%" + filters.search + "%"} OR ${schema.contentPosts.excerpt} ILIKE ${"%" + filters.search + "%"})`
+    );
+  }
+
+  const rows = await db
+    .select()
+    .from(schema.contentPosts)
+    .where(and(...conditions))
+    .orderBy(desc(schema.contentPosts.updatedAt));
+
+  return rows.map(rowToContentPost);
+}
+
+export async function getContentPostById(id: string): Promise<ContentPost | null> {
+  if (!hasDatabase()) {
+    return (contentJson.posts as ContentPost[]).find((p) => p.id === id) ?? null;
+  }
+
+  const rows = await db
+    .select()
+    .from(schema.contentPosts)
+    .where(eq(schema.contentPosts.id, id))
+    .limit(1);
+  return rows[0] ? rowToContentPost(rows[0]) : null;
+}
+
+export async function getContentCRMData(institutionId: string): Promise<ContentCRMData> {
+  const posts = await getContentPosts(institutionId);
+  const categories = await getContentCategories();
+
+  return {
+    posts,
+    categories,
+    stats: {
+      total: posts.length,
+      drafts: posts.filter((p) => p.status === "draft").length,
+      inReview: posts.filter((p) => p.status === "review").length,
+      published: posts.filter((p) => p.status === "published").length,
+      archived: posts.filter((p) => p.status === "archived").length,
+    },
+  };
+}
+
+export async function createContentPost(
+  data: Omit<typeof schema.contentPosts.$inferInsert, "createdAt" | "updatedAt">
+) {
+  if (!hasDatabase()) {
+    return { ...data, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() } as ContentPost;
+  }
+
+  await db.insert(schema.contentPosts).values(data);
+  return getContentPostById(data.id);
+}
+
+export async function updateContentPost(
+  id: string,
+  data: Partial<typeof schema.contentPosts.$inferInsert>
+) {
+  if (!hasDatabase()) {
+    const post = (contentJson.posts as ContentPost[]).find((p) => p.id === id);
+    if (!post) return null;
+    return { ...post, ...data, updatedAt: new Date().toISOString() } as ContentPost;
+  }
+
+  await db
+    .update(schema.contentPosts)
+    .set({ ...data, updatedAt: new Date() })
+    .where(eq(schema.contentPosts.id, id));
+
+  return getContentPostById(id);
+}
+
+export async function deleteContentPost(id: string) {
+  if (!hasDatabase()) return;
+  await db.delete(schema.contentPosts).where(eq(schema.contentPosts.id, id));
+}
+
+function rowToContentPost(row: typeof schema.contentPosts.$inferSelect): ContentPost {
+  return {
+    id: row.id,
+    title: row.title,
+    slug: row.slug,
+    excerpt: row.excerpt,
+    body: row.body,
+    coverImage: row.coverImage,
+    category: row.category,
+    tags: row.tags as string[],
+    status: row.status as ContentPost["status"],
+    authorId: row.authorId,
+    authorName: row.authorName,
+    institutionId: row.institutionId,
+    seoTitle: row.seoTitle,
+    seoDescription: row.seoDescription,
+    publishedAt: row.publishedAt?.toISOString() ?? null,
+    createdAt: row.createdAt.toISOString(),
+    updatedAt: row.updatedAt.toISOString(),
+  };
 }

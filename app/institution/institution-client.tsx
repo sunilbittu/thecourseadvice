@@ -5,7 +5,7 @@ import Link from "next/link";
 import { InstitutionDashboardData } from "@/lib/types";
 import { AnimatedSection, StaggerChildren } from "@/components/animated-section";
 import Counter from "@/components/counter";
-import { Users, BookOpen, Heart, Target, ArrowRight, BarChart3, Plus, MoreHorizontal } from "lucide-react";
+import { Users, BookOpen, Heart, Target, ArrowRight, BarChart3, Plus, MoreHorizontal, FileText } from "lucide-react";
 
 export default function InstitutionClient({ data: initialData }: { data: InstitutionDashboardData }) {
   const [data, setData] = useState(initialData);
@@ -39,6 +39,12 @@ export default function InstitutionClient({ data: initialData }: { data: Institu
             <p className="text-lg text-on-surface-variant">Overview of your courses, leads, and performance.</p>
           </div>
           <div className="flex items-center gap-3">
+            <Link
+              href="/institution/content"
+              className="flex items-center gap-2 px-5 py-3 rounded-xl ghost-border text-sm font-semibold text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-all"
+            >
+              <FileText className="w-4 h-4" /> Content
+            </Link>
             <Link
               href="/institution/analytics"
               className="flex items-center gap-2 px-5 py-3 rounded-xl ghost-border text-sm font-semibold text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-all"
