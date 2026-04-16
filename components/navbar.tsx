@@ -8,7 +8,7 @@ import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 
 const publicLinks = [
   { label: "Courses", href: "/" },
-  { label: "Resources", href: "/resources" },
+  { label: "Institutes", href: "/institutes" },
 ];
 
 const studentLinks = [
@@ -58,10 +58,10 @@ export default function Navbar() {
             </div>
             <div className="flex flex-col">
               <span className="font-heading font-extrabold text-on-surface text-lg leading-none tracking-tight">
-                CourseAdvice
+                TheCourseAdvice
               </span>
               <span className="text-[9px] font-semibold uppercase tracking-[0.25em] text-on-surface-variant leading-none mt-0.5">
-                The Scholarly Perspective
+                Navigate Your Education with Confidence
               </span>
             </div>
           </Link>
@@ -92,9 +92,9 @@ export default function Navbar() {
 
           {/* Right side */}
           <div className="hidden md:flex items-center gap-3">
-            <button className="p-2.5 rounded-xl hover:bg-surface-container-high transition-colors text-on-surface-variant hover:text-on-surface">
+            {/* <button className="p-2.5 rounded-xl hover:bg-surface-container-high transition-colors text-on-surface-variant hover:text-on-surface">
               <Search className="w-[18px] h-[18px]" />
-            </button>
+            </button> */}
             {isSignedIn ? (
               <div className="flex items-center gap-3">
                 <Link

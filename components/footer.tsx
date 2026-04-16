@@ -69,7 +69,7 @@ export default function Footer() {
                 </div>
                 <div className="flex flex-col">
                   <span className="font-heading font-extrabold text-lg leading-none">
-                    CourseAdvice
+                    TheCourseAdvice
                   </span>
                   <span className="text-[9px] font-semibold uppercase tracking-[0.25em] text-white/40 leading-none mt-0.5">
                     The Scholarly Perspective
