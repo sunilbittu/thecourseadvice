@@ -188,8 +188,15 @@
 
   /* Editorial asymmetric margins */
   .editorial-margins {
-    margin-left: 10%;
-    margin-right: 5%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  @media (min-width: 768px) {
+    .editorial-margins {
+      margin-left: 10%;
+      margin-right: 5%;
+    }
   }
 
   /* Uppercase label style */

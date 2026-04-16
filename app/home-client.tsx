@@ -46,26 +46,26 @@ export default function HomeClient({
   institutions: Institution[];
 }) {
   return (
-    <main className="flex-1 page-enter">
+    <main className="flex-1 page-enter overflow-x-hidden">
       {/* ─── HERO ─── */}
-      <section className="relative min-h-[90vh] flex items-center">
-        <div className="max-w-[1440px] mx-auto px-8 w-full relative z-10">
+      <section className="relative min-h-[78vh] md:min-h-[90vh] flex items-center">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 w-full relative z-10">
           <div className="editorial-margins">
-            <h1 className="font-heading text-[4.5rem] md:text-[5.5rem] font-extrabold leading-[0.95] tracking-[-0.04em] text-on-surface mb-8 max-w-4xl">
+            <h1 className="font-heading text-4xl sm:text-5xl md:text-[5.5rem] font-extrabold leading-[0.95] tracking-[-0.04em] text-on-surface mb-6 md:mb-8 max-w-4xl">
               <HeroText text="Discover your path to success" />
             </h1>
 
             <AnimatedSection delay={0.5} y={30}>
-              <p className="text-xl leading-[1.7] text-on-surface-variant max-w-xl mb-12">
+              <p className="text-base sm:text-lg md:text-xl leading-[1.7] text-on-surface-variant max-w-xl mb-8 md:mb-12">
                 Find the perfect course and institution
               </p>
             </AnimatedSection>
 
             {/* Search */}
             <AnimatedSection delay={0.7} y={30}>
-              <div className="max-w-3xl bg-white rounded-2xl p-2.5 shadow-editorial ghost-border">
-                <div className="flex items-center gap-2">
-                  <div className="flex-1 flex items-center gap-3 bg-surface-container-low rounded-xl px-5 py-4">
+              <div className="max-w-3xl bg-white rounded-2xl p-2 shadow-editorial ghost-border">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                  <div className="flex-1 flex items-center gap-3 bg-surface-container-low rounded-xl px-4 sm:px-5 py-3 sm:py-4">
                     <Search className="w-5 h-5 text-on-surface-variant shrink-0" />
                     <input
                       type="text"
@@ -73,7 +73,7 @@ export default function HomeClient({
                       className="w-full bg-transparent text-on-surface placeholder:text-outline text-[15px] font-medium outline-none"
                     />
                   </div>
-                  <div className="hidden md:flex items-center gap-2 bg-surface-container-low rounded-xl px-4 py-4">
+                  <div className="hidden lg:flex items-center gap-2 bg-surface-container-low rounded-xl px-4 py-4">
                     <MapPin className="w-4 h-4 text-on-surface-variant shrink-0" />
                     <select className="bg-transparent text-sm font-medium text-on-surface outline-none cursor-pointer">
                       <option>All Locations</option>
@@ -84,7 +84,7 @@ export default function HomeClient({
                     </select>
                   </div>
                   <MagneticButton
-                    className="bg-surface-tint text-white font-heading font-bold text-sm px-8 py-4 rounded-xl hover:brightness-110 transition-all shrink-0"
+                    className="w-full sm:w-auto bg-surface-tint text-white font-heading font-bold text-sm px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl hover:brightness-110 transition-all shrink-0"
                     strength={0.2}
                   >
                     Search
@@ -95,11 +95,11 @@ export default function HomeClient({
 
             {/* Quick Stats — inline text, not icon boxes */}
             <AnimatedSection delay={0.9} y={20}>
-              <div className="flex items-center gap-8 mt-14 text-sm text-on-surface-variant">
+              <div className="flex flex-wrap items-center gap-3 sm:gap-8 mt-10 md:mt-14 text-sm text-on-surface-variant">
                 <span><strong className="text-on-surface font-heading"><Counter value={500} suffix="+" /></strong> courses</span>
-                <span className="w-px h-4 bg-outline-variant/30" />
+                <span className="hidden sm:block w-px h-4 bg-outline-variant/30" />
                 <span><strong className="text-on-surface font-heading"><Counter value={25000} suffix="+" /></strong> students</span>
-                <span className="w-px h-4 bg-outline-variant/30" />
+                <span className="hidden sm:block w-px h-4 bg-outline-variant/30" />
                 <span><strong className="text-on-surface font-heading"><Counter value={50} suffix="+" /></strong> institutions</span>
               </div>
             </AnimatedSection>
@@ -108,13 +108,13 @@ export default function HomeClient({
       </section>
 
       {/* ─── CATEGORIES ─── */}
-      <section className="py-28 px-8 bg-surface-container-low">
+      <section className="py-16 md:py-28 px-4 sm:px-6 md:px-8 bg-surface-container-low">
         <div className="absolute left-0 right-0 h-px bg-outline-variant/10" />
         <div className="max-w-[1440px] mx-auto">
           <AnimatedSection>
-            <div className="flex items-end justify-between mb-14">
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 md:mb-14">
               <div>
-                <h2 className="font-heading text-[2.75rem] font-extrabold leading-[1.1] tracking-[-0.02em] text-on-surface">
+                <h2 className="font-heading text-3xl sm:text-4xl md:text-[2.75rem] font-extrabold leading-[1.1] tracking-[-0.02em] text-on-surface">
                   Popular Categories
                 </h2>
               </div>
@@ -127,14 +127,14 @@ export default function HomeClient({
             </div>
           </AnimatedSection>
 
-          <StaggerChildren className="grid grid-cols-3 gap-5" stagger={0.06}>
+          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5" stagger={0.06}>
             {categories.slice(0, 9).map((cat) => {
               const Icon = categoryIcons[cat.name] || BookOpen;
               return (
                 <Link
                   key={cat.id}
                   href={`/categories/${encodeURIComponent(cat.name)}`}
-                  className="group bg-white rounded-2xl p-7 card-hover ghost-border"
+                  className="group bg-white rounded-2xl p-5 md:p-7 card-hover ghost-border"
                 >
                   <div className="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center mb-4 group-hover:bg-surface-tint/10 transition-colors duration-300">
                     <Icon className="w-5 h-5 text-on-surface-variant group-hover:text-surface-tint transition-colors duration-300" />
@@ -151,12 +151,12 @@ export default function HomeClient({
       </section>
 
       {/* ─── FEATURED COURSES ─── */}
-      <section className="py-28 px-8">
+      <section className="py-16 md:py-28 px-4 sm:px-6 md:px-8">
         <div className="max-w-[1440px] mx-auto">
           <AnimatedSection>
-            <div className="flex items-end justify-between mb-14">
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 md:mb-14">
               <div>
-                <h2 className="font-heading text-[2.75rem] font-extrabold leading-[1.1] tracking-[-0.02em] text-on-surface">
+                <h2 className="font-heading text-3xl sm:text-4xl md:text-[2.75rem] font-extrabold leading-[1.1] tracking-[-0.02em] text-on-surface">
                   Trending Courses
                 </h2>
               </div>
@@ -169,7 +169,7 @@ export default function HomeClient({
             </div>
           </AnimatedSection>
 
-          <StaggerChildren className="grid grid-cols-3 gap-7" stagger={0.08}>
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-7" stagger={0.08}>
               {courses.slice(0, 6).map((course, i) => (
                 <Link
                   key={course.id}
@@ -177,7 +177,7 @@ export default function HomeClient({
                   className="group bg-white rounded-2xl shadow-editorial card-hover ghost-border overflow-hidden"
                 >
                   {/* Thumbnail with initials */}
-                  <div className={`relative h-52 flex items-center justify-center ${THUMB_COLORS[i % THUMB_COLORS.length]}`}>
+                  <div className={`relative h-48 sm:h-52 flex items-center justify-center ${THUMB_COLORS[i % THUMB_COLORS.length]}`}>
                     <span className="font-heading text-5xl font-extrabold opacity-40">
                       {courseInitials(course.title)}
                     </span>
@@ -192,13 +192,13 @@ export default function HomeClient({
                     </div>
                   </div>
 
-                  <div className="p-6">
+                  <div className="p-5 md:p-6">
                     <h3 className="font-heading text-[1.25rem] font-bold leading-[1.3] tracking-[-0.01em] text-on-surface mb-2 group-hover:text-surface-tint transition-colors duration-300">
                       {course.title}
                     </h3>
                     <p className="text-sm text-on-surface-variant mb-5">{course.instructor}</p>
 
-                    <div className="flex items-center gap-3 text-xs text-on-surface-variant mb-5">
+                    <div className="flex flex-wrap items-center gap-3 text-xs text-on-surface-variant mb-5">
                       <span className="flex items-center gap-1">
                         <Clock className="w-3.5 h-3.5" /> {course.duration}
                       </span>
@@ -214,7 +214,7 @@ export default function HomeClient({
                       <span className="font-heading text-xl font-extrabold text-on-surface">
                         ${course.price.toLocaleString()}
                       </span>
-                      <span className="flex items-center gap-1.5 text-sm font-semibold text-surface-tint opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                      <span className="flex items-center gap-1.5 text-sm font-semibold text-surface-tint opacity-100 md:opacity-0 translate-x-0 md:translate-x-2 md:group-hover:opacity-100 md:group-hover:translate-x-0 transition-all duration-300">
                         View Course <ArrowRight className="w-4 h-4" />
                       </span>
                     </div>
@@ -226,9 +226,9 @@ export default function HomeClient({
       </section>
 
       {/* ─── STATS ─── */}
-      <section className="py-20 px-8 border-y border-outline-variant/10">
+      <section className="py-14 md:py-20 px-4 sm:px-6 md:px-8 border-y border-outline-variant/10">
         <div className="max-w-[1440px] mx-auto">
-          <StaggerChildren className="grid grid-cols-4 gap-8" stagger={0.1}>
+          <StaggerChildren className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8" stagger={0.1}>
             {[
               { value: 500, suffix: "+", label: "Expert Courses", icon: BookOpen },
               { value: 25000, suffix: "+", label: "Active Students", icon: Users },
@@ -236,7 +236,7 @@ export default function HomeClient({
               { value: 4.8, suffix: "", label: "Average Rating", icon: Star, decimals: 1 },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <p className="font-heading text-[3rem] font-extrabold text-on-surface leading-none mb-1">
+                <p className="font-heading text-4xl md:text-[3rem] font-extrabold text-on-surface leading-none mb-1">
                   <Counter value={stat.value} suffix={stat.suffix} decimals={stat.decimals || 0} />
                 </p>
                 <p className="text-sm text-on-surface-variant">{stat.label}</p>
@@ -247,24 +247,24 @@ export default function HomeClient({
       </section>
 
       {/* ─── INSTITUTIONS ─── */}
-      <section className="py-28 px-8 bg-surface-container-low">
+      <section className="py-16 md:py-28 px-4 sm:px-6 md:px-8 bg-surface-container-low">
         <div className="max-w-[1440px] mx-auto">
           <AnimatedSection>
-            <div className="text-center mb-16">
-              <h2 className="font-heading text-[2.75rem] font-extrabold leading-[1.1] tracking-[-0.02em] text-on-surface mb-4">
+            <div className="text-center mb-10 md:mb-16">
+              <h2 className="font-heading text-3xl sm:text-4xl md:text-[2.75rem] font-extrabold leading-[1.1] tracking-[-0.02em] text-on-surface mb-4">
                 Leading Institutions
               </h2>
-              <p className="text-lg text-on-surface-variant max-w-xl mx-auto">
+              <p className="text-base md:text-lg text-on-surface-variant max-w-xl mx-auto">
                 Learn from the world&apos;s most prestigious universities and educational organizations
               </p>
             </div>
           </AnimatedSection>
 
-          <StaggerChildren className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5" stagger={0.06}>
+          <StaggerChildren className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-5" stagger={0.06}>
             {institutions.map((inst) => (
               <div
                 key={inst.id}
-                className="group bg-white rounded-2xl p-6 card-hover ghost-border text-center"
+                className="group bg-white rounded-2xl p-4 sm:p-6 card-hover ghost-border text-center"
               >
                 <div className="w-16 h-16 rounded-2xl bg-surface-container-low mx-auto mb-4 flex items-center justify-center group-hover:bg-surface-tint/10 transition-colors duration-300">
                   <span className="font-heading text-lg font-extrabold text-on-surface-variant/60 group-hover:text-surface-tint transition-colors duration-300">
@@ -283,17 +283,17 @@ export default function HomeClient({
       </section>
 
       {/* ─── HOW IT WORKS ─── */}
-      <section className="py-28 px-8">
+      <section className="py-16 md:py-28 px-4 sm:px-6 md:px-8">
         <div className="max-w-[1440px] mx-auto">
           <AnimatedSection>
-            <div className="text-center mb-16">
-              <h2 className="font-heading text-[2.75rem] font-extrabold leading-[1.1] tracking-[-0.02em] text-on-surface">
+            <div className="text-center mb-10 md:mb-16">
+              <h2 className="font-heading text-3xl sm:text-4xl md:text-[2.75rem] font-extrabold leading-[1.1] tracking-[-0.02em] text-on-surface">
                 How It Works
               </h2>
             </div>
           </AnimatedSection>
 
-          <StaggerChildren className="grid grid-cols-3 gap-8" stagger={0.12}>
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8" stagger={0.12}>
             {[
               {
                 step: 1,
@@ -315,7 +315,7 @@ export default function HomeClient({
               },
             ].map((item) => (
               <div key={item.step} className="group">
-                <div className="bg-white rounded-2xl p-10 ghost-border card-hover">
+                <div className="bg-white rounded-2xl p-6 md:p-10 ghost-border card-hover">
                   <div className="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center mb-6">
                     <item.icon className="w-5 h-5 text-surface-tint" />
                   </div>
@@ -333,7 +333,7 @@ export default function HomeClient({
       </section>
 
       {/* ─── INSTITUTION PARTNER BANNER ─── */}
-      <section className="px-8 pb-28">
+      <section className="px-4 sm:px-6 md:px-8 pb-16 md:pb-28">
         <div className="max-w-[1440px] mx-auto">
           <AnimatedSection>
             <div className="bg-surface-container-low rounded-3xl p-8 md:p-12 ghost-border flex flex-col md:flex-row md:items-center md:justify-between gap-8">
@@ -348,7 +348,7 @@ export default function HomeClient({
 
               <Link
                 href="/institution"
-                className="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-surface-tint text-white font-heading font-bold text-sm hover:brightness-110 transition-all duration-300 whitespace-nowrap"
+                className="inline-flex w-full md:w-auto items-center justify-center px-8 py-4 rounded-xl bg-surface-tint text-white font-heading font-bold text-sm hover:brightness-110 transition-all duration-300 whitespace-nowrap"
               >
                 Partner with us
               </Link>
