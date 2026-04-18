@@ -4,6 +4,7 @@ import CourseDetailClient from "./course-detail-client";
 import { getCourseBySlug, getEnrollments, getShortlist, trackCourseView } from "@/lib/db/queries";
 import { getAuth } from "@/lib/auth";
 import { after } from "next/server";
+import { getInstituteSlugByCourseInstitution } from "@/lib/institutes";
 
 export default async function CourseDetailPage({
   params,
@@ -47,9 +48,12 @@ export default async function CourseDetailPage({
     isShortlisted = shortlist.some((s) => s.courseId === course.id);
   }
 
+  const instituteSlug = getInstituteSlugByCourseInstitution(course.institution);
+
   return (
     <CourseDetailClient
       course={course}
+      instituteSlug={instituteSlug}
       isEnrolled={isEnrolled}
       isShortlisted={isShortlisted}
       isSignedIn={!!userId}

@@ -133,7 +133,7 @@ export default function HomeClient({
               return (
                 <Link
                   key={cat.id}
-                  href={`/categories/${encodeURIComponent(cat.name)}`}
+                  href={`/courses?category=${encodeURIComponent(cat.name)}`}
                   className="group bg-white rounded-2xl p-5 md:p-7 card-hover ghost-border"
                 >
                   <div className="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center mb-4 group-hover:bg-surface-tint/10 transition-colors duration-300">
@@ -161,7 +161,7 @@ export default function HomeClient({
                 </h2>
               </div>
               <Link
-                href="/"
+                href="/courses"
                 className="flex items-center gap-2 text-sm font-semibold text-surface-tint hover:gap-3 transition-all duration-300"
               >
                 Browse all courses <ArrowRight className="w-4 h-4" />

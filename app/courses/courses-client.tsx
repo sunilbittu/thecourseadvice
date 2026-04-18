@@ -1,26 +1,30 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Course, Category } from "@/lib/types";
 import { AnimatedSection, StaggerChildren } from "@/components/animated-section";
 import {
-  ArrowLeft, ArrowRight, Star, Users, Clock, Globe, BookOpen, X,
-  Cpu, BarChart3, DollarSign, Palette, Zap, Briefcase, Leaf, Megaphone, Target,
+  ArrowLeft,
+  ArrowRight,
+  BookOpen,
+  Clock,
+  Globe,
+  Star,
+  Users,
+  X,
 } from "lucide-react";
 
-const categoryIcons: Record<string, typeof Cpu> = {
-  "Artificial Intelligence": Cpu,
-  "Data Science": BarChart3,
-  "Finance": DollarSign,
-  "Design": Palette,
-  "Technology": Zap,
-  "Business": Briefcase,
-  "Sustainability": Leaf,
-  "Marketing": Megaphone,
-  "Leadership": Target,
+type Filters = {
+  categories: string[];
+  languages: string[];
+  formats: string[];
+  courseTypes: string[];
+  price: "all" | "free" | "paid";
 };
 
+const FORMAT_OPTIONS = ["Online", "In-Person", "Hybrid"] as const;
+const COURSE_TYPE_OPTIONS = ["Certificate", "Degree", "Diploma", "Workshop"] as const;
 const THUMB_COLORS = [
   "bg-[#1a1a2e] text-[#e0e0e0]",
   "bg-[#16213e] text-[#a8b4c4]",
@@ -31,30 +35,22 @@ const THUMB_COLORS = [
 ];
 
 function courseInitials(title: string) {
-  return title.split(" ").slice(0, 2).map((w) => w[0]).join("").toUpperCase();
+  return title
+    .split(" ")
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase();
 }
 
-/** Derive a course type label from perks / title */
 function getCourseType(course: Course): string {
-  const haystack = [...course.perks, course.title, course.description]
-    .join(" ")
-    .toLowerCase();
+  const haystack = [...course.perks, course.title, course.description].join(" ").toLowerCase();
   if (haystack.includes("degree")) return "Degree";
   if (haystack.includes("diploma")) return "Diploma";
   if (haystack.includes("workshop")) return "Workshop";
   if (course.certification) return "Certificate";
   return "Certificate";
 }
-
-type Filters = {
-  languages: string[];
-  formats: string[];
-  courseTypes: string[];
-  price: string; // "all" | "free" | "paid"
-};
-
-const FORMAT_OPTIONS = ["Online", "In-Person", "Hybrid"] as const;
-const COURSE_TYPE_OPTIONS = ["Certificate", "Degree", "Diploma", "Workshop"] as const;
 
 function FilterCheckbox({
   label,
@@ -88,6 +84,7 @@ function FilterCheckbox({
 }
 
 function FiltersPanel({
+  categories,
   languages,
   filters,
   activeCount,
@@ -95,16 +92,16 @@ function FiltersPanel({
   toggleArr,
   setPrice,
 }: {
+  categories: Category[];
   languages: string[];
   filters: Filters;
   activeCount: number;
   clearFilters: () => void;
-  toggleArr: (key: "languages" | "formats" | "courseTypes", value: string) => void;
+  toggleArr: (key: "categories" | "languages" | "formats" | "courseTypes", value: string) => void;
   setPrice: (price: Filters["price"]) => void;
 }) {
   return (
     <div className="bg-white rounded-2xl ghost-border p-5 md:p-6 space-y-6 md:space-y-7">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <h2 className="font-heading text-base font-bold text-on-surface">Filters</h2>
         {activeCount > 0 && (
@@ -117,7 +114,22 @@ function FiltersPanel({
         )}
       </div>
 
-      {/* Language */}
+      <div>
+        <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant mb-3">
+          Categories
+        </p>
+        <div className="space-y-2.5 max-h-64 overflow-auto pr-1">
+          {categories.map((cat) => (
+            <FilterCheckbox
+              key={cat.id}
+              label={cat.name}
+              checked={filters.categories.includes(cat.name)}
+              onChange={() => toggleArr("categories", cat.name)}
+            />
+          ))}
+        </div>
+      </div>
+
       {languages.length > 0 && (
         <div>
           <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant mb-3">
@@ -136,11 +148,8 @@ function FiltersPanel({
         </div>
       )}
 
-      {/* Format */}
       <div>
-        <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant mb-3">
-          Format
-        </p>
+        <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant mb-3">Format</p>
         <div className="space-y-2.5">
           {FORMAT_OPTIONS.map((fmt) => (
             <FilterCheckbox
@@ -153,7 +162,6 @@ function FiltersPanel({
         </div>
       </div>
 
-      {/* Course Type */}
       <div>
         <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant mb-3">
           Course Type
@@ -170,11 +178,8 @@ function FiltersPanel({
         </div>
       </div>
 
-      {/* Price */}
       <div>
-        <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant mb-3">
-          Price
-        </p>
+        <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant mb-3">Price</p>
         <div className="space-y-2.5">
           {(["all", "free", "paid"] as const).map((opt) => (
             <label
@@ -189,9 +194,7 @@ function FiltersPanel({
                     : "border-outline-variant/50 group-hover:border-surface-tint"
                 }`}
               >
-                {filters.price === opt && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-white" />
-                )}
+                {filters.price === opt && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
               </span>
               <span className={`text-sm transition-colors duration-200 capitalize ${filters.price === opt ? "text-on-surface font-medium" : "text-on-surface-variant group-hover:text-on-surface"}`}>
                 {opt === "all" ? "All" : opt === "free" ? "Free" : "Paid"}
@@ -204,24 +207,24 @@ function FiltersPanel({
   );
 }
 
-export default function CategoryClient({
-  category,
+export default function CoursesClient({
   courses,
-  allCategories,
+  categories,
+  initialCategory,
 }: {
-  category: string;
   courses: Course[];
-  allCategories: Category[];
+  categories: Category[];
+  initialCategory?: string;
 }) {
-  const Icon = categoryIcons[category] || BookOpen;
+  const normalizedCategory = (initialCategory ?? "").trim();
 
-  // Derive unique languages from courses
   const languages = useMemo(
-    () => [...new Set(courses.map((c) => c.language))].sort(),
-    [courses]
+    () => [...new Set(courses.map((course) => course.language))].sort(),
+    [courses],
   );
 
   const [filters, setFilters] = useState<Filters>({
+    categories: normalizedCategory ? [normalizedCategory] : [],
     languages: [],
     formats: [],
     courseTypes: [],
@@ -229,7 +232,7 @@ export default function CategoryClient({
   });
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  const toggleArr = (key: "languages" | "formats" | "courseTypes", value: string) => {
+  const toggleArr = (key: "categories" | "languages" | "formats" | "courseTypes", value: string) => {
     setFilters((prev) => ({
       ...prev,
       [key]: prev[key].includes(value)
@@ -238,29 +241,31 @@ export default function CategoryClient({
     }));
   };
 
-  const clearFilters = () =>
-    setFilters({ languages: [], formats: [], courseTypes: [], price: "all" });
+  const clearFilters = () => {
+    setFilters({ categories: [], languages: [], formats: [], courseTypes: [], price: "all" });
+  };
 
   const activeCount =
+    filters.categories.length +
     filters.languages.length +
     filters.formats.length +
     filters.courseTypes.length +
     (filters.price !== "all" ? 1 : 0);
 
-  const filtered = useMemo(() => {
-    return courses.filter((c) => {
-      if (filters.languages.length > 0 && !filters.languages.includes(c.language)) return false;
-      if (filters.formats.length > 0 && !filters.formats.includes(c.delivery)) return false;
-      if (filters.courseTypes.length > 0 && !filters.courseTypes.includes(getCourseType(c))) return false;
-      if (filters.price === "free" && c.price > 0) return false;
-      if (filters.price === "paid" && c.price === 0) return false;
+  const filteredCourses = useMemo(() => {
+    return courses.filter((course) => {
+      if (filters.categories.length > 0 && !filters.categories.includes(course.category)) return false;
+      if (filters.languages.length > 0 && !filters.languages.includes(course.language)) return false;
+      if (filters.formats.length > 0 && !filters.formats.includes(course.delivery)) return false;
+      if (filters.courseTypes.length > 0 && !filters.courseTypes.includes(getCourseType(course))) return false;
+      if (filters.price === "free" && course.price > 0) return false;
+      if (filters.price === "paid" && course.price === 0) return false;
       return true;
     });
   }, [courses, filters]);
 
   return (
     <main className="flex-1 page-enter overflow-x-hidden">
-      {/* ─── HEADER ─── */}
       <section className="py-8 md:py-12 px-4 sm:px-6 md:px-8 border-b border-outline-variant/10">
         <div className="max-w-[1440px] mx-auto">
           <AnimatedSection>
@@ -270,30 +275,22 @@ export default function CategoryClient({
             >
               <ArrowLeft className="w-4 h-4" /> Back to Home
             </Link>
-            <div className="flex items-start sm:items-center gap-4 sm:gap-5">
-              <div className="w-11 h-11 sm:w-14 sm:h-14 rounded-2xl bg-surface-tint/10 flex items-center justify-center shrink-0">
-                <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-surface-tint" />
-              </div>
-              <div>
-                <h1 className="font-heading text-3xl sm:text-5xl font-extrabold leading-[1.05] tracking-[-0.03em] text-on-surface break-words">
-                  {category}
-                </h1>
-                <p className="text-on-surface-variant mt-1">
-                  {filtered.length} course{filtered.length !== 1 ? "s" : ""} found
-                </p>
-              </div>
-            </div>
+
+            <h1 className="font-heading text-3xl sm:text-5xl font-extrabold leading-[1.05] tracking-[-0.03em] text-on-surface">
+              All Courses
+            </h1>
+            <p className="text-on-surface-variant mt-2">
+              {filteredCourses.length} course{filteredCourses.length !== 1 ? "s" : ""} found
+            </p>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* ─── BODY: SIDEBAR + COURSES ─── */}
       <section className="py-8 md:py-10 px-4 sm:px-6 md:px-8">
         <div className="max-w-[1440px] mx-auto flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
-
-          {/* ── FILTERS SIDEBAR ── */}
           <aside className="hidden lg:block w-64 shrink-0 sticky top-24">
             <FiltersPanel
+              categories={categories}
               languages={languages}
               filters={filters}
               activeCount={activeCount}
@@ -303,9 +300,7 @@ export default function CategoryClient({
             />
           </aside>
 
-          {/* ── COURSES GRID ── */}
           <div className="flex-1 min-w-0 w-full">
-            {/* Mobile filters */}
             <div className="lg:hidden mb-5">
               <button
                 onClick={() => setMobileFiltersOpen((prev) => !prev)}
@@ -316,9 +311,10 @@ export default function CategoryClient({
               </button>
 
               <div
-                className={`overflow-hidden transition-all duration-300 ${mobileFiltersOpen ? "max-h-[1200px] opacity-100 mt-3" : "max-h-0 opacity-0"}`}
+                className={`overflow-hidden transition-all duration-300 ${mobileFiltersOpen ? "max-h-[1400px] opacity-100 mt-3" : "max-h-0 opacity-0"}`}
               >
                 <FiltersPanel
+                  categories={categories}
                   languages={languages}
                   filters={filters}
                   activeCount={activeCount}
@@ -329,9 +325,9 @@ export default function CategoryClient({
               </div>
             </div>
 
-            {filtered.length > 0 ? (
+            {filteredCourses.length > 0 ? (
               <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" stagger={0.06}>
-                {filtered.map((course, i) => (
+                {filteredCourses.map((course, i) => (
                   <Link
                     key={course.id}
                     href={`/courses/${course.slug}`}
@@ -347,7 +343,7 @@ export default function CategoryClient({
                       </div>
                       <div className="absolute bottom-4 left-4">
                         <span className="inline-block bg-white/90 text-on-surface text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full">
-                          {getCourseType(course)}
+                          {course.category}
                         </span>
                       </div>
                     </div>
@@ -397,33 +393,6 @@ export default function CategoryClient({
                 </button>
               </div>
             )}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── OTHER CATEGORIES ─── */}
-      <section className="py-10 md:py-12 px-4 sm:px-6 md:px-8 bg-surface-container-low border-t border-outline-variant/10">
-        <div className="max-w-[1440px] mx-auto">
-          <AnimatedSection>
-            <h2 className="font-heading text-xl font-bold text-on-surface mb-6">Explore other categories</h2>
-          </AnimatedSection>
-          <div className="flex flex-wrap gap-3">
-            {allCategories
-              .filter((c) => c.name !== category)
-              .map((cat) => {
-                const CatIcon = categoryIcons[cat.name] || BookOpen;
-                return (
-                  <Link
-                    key={cat.id}
-                    href={`/courses?category=${encodeURIComponent(cat.name)}`}
-                    className="inline-flex items-center gap-2 bg-white rounded-xl px-5 py-3 ghost-border card-hover text-sm font-semibold text-on-surface hover:text-surface-tint transition-colors duration-300"
-                  >
-                    <CatIcon className="w-4 h-4 text-on-surface-variant" />
-                    {cat.name}
-                    <span className="text-xs text-on-surface-variant font-normal">({cat.courseCount})</span>
-                  </Link>
-                );
-              })}
           </div>
         </div>
       </section>

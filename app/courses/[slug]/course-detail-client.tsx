@@ -8,9 +8,18 @@ import { AnimatedSection, StaggerChildren } from "@/components/animated-section"
 import MagneticButton from "@/components/magnetic-button";
 import Counter from "@/components/counter";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
   Star, Users, Clock, Globe, BookOpen, Award, CheckCircle2,
-  ChevronLeft, Heart, Share2, Play, Monitor, MapPin
+  ChevronLeft, Heart, Share2, Play, Monitor, MapPin,
+  Briefcase, UserCheck, BadgeCheck, GraduationCap,
+  Target, FileText, MessagesSquare
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 const deliveryIcon: Record<string, typeof Monitor> = {
   "Online": Monitor,
@@ -20,17 +29,121 @@ const deliveryIcon: Record<string, typeof Monitor> = {
 
 interface Props {
   course: Course;
+  instituteSlug?: string | null;
   isEnrolled?: boolean;
   isShortlisted?: boolean;
   isSignedIn?: boolean;
 }
 
-export default function CourseDetailClient({ course, isEnrolled = false, isShortlisted = false, isSignedIn = false }: Props) {
+const getModuleHighlights = (moduleTitle: string, lessons: number) => [
+  `${lessons} guided lessons with practical demonstrations and examples.`,
+  `Hands-on exercises focused on ${moduleTitle.toLowerCase()}.`,
+  "Checkpoint quiz and recap notes to reinforce key concepts.",
+];
+
+const getPrerequisites = (course: Course) => {
+  const levelPrerequisite: Record<Course["level"], string> = {
+    Beginner: "No prior experience is required; basic computer literacy is enough.",
+    Intermediate: "Foundational knowledge in this subject area is recommended.",
+    Advanced: "Strong prior experience with core concepts is expected.",
+  };
+
+  return [
+    levelPrerequisite[course.level],
+    "Commitment of 5-7 hours per week for lessons, practice, and revision.",
+    `Ability to follow instruction and coursework in ${course.language}.`,
+    "Stable internet connection and a laptop or desktop for assignments.",
+  ];
+};
+
+type FeatureHighlight = {
+  title: string;
+  description: string;
+  icon: LucideIcon;
+};
+
+const getCourseFeatureHighlights = (course: Course): FeatureHighlight[] => {
+  const deliveryMode = course.delivery.toLowerCase();
+  const topModules = course.curriculum.slice(0, 2).map((module) => module.title).join(" and ");
+  const totalLessons = course.curriculum.reduce((sum, module) => sum + module.lessons, 0);
+
+  return [
+    {
+      title: "Practical Curriculum",
+      description: `${course.curriculum.length} modules and ${totalLessons} lessons built around real outcomes.`,
+      icon: Briefcase,
+    },
+    {
+      title: "Expert-Led Training",
+      description: `Learn directly from ${course.instructor} through guided sessions and examples.`,
+      icon: UserCheck,
+    },
+    {
+      title: `${course.delivery} Learning`,
+      description: `Flexible ${deliveryMode} delivery designed for working learners.`,
+      icon: course.delivery === "Online" ? Monitor : course.delivery === "In-Person" ? MapPin : Globe,
+    },
+    {
+      title: course.certification ? "Certification Track" : "Skill Mastery Track",
+      description: course.certification
+        ? "Complete assessments and earn a course certificate on graduation."
+        : "Focus on practical capability building through projects and assessments.",
+      icon: BadgeCheck,
+    },
+    {
+      title: "Focused Learning Path",
+      description: topModules
+        ? `Deep dive into ${topModules.toLowerCase()} with structured progression.`
+        : "Structured weekly progression with module-wise checkpoints.",
+      icon: GraduationCap,
+    },
+    {
+      title: "Performance Reviews",
+      description: "Regular practice tasks and feedback checkpoints after each module.",
+      icon: Target,
+    },
+    {
+      title: "Career Assets",
+      description: "Build portfolio-ready deliverables you can present in interviews.",
+      icon: FileText,
+    },
+    {
+      title: "Communication & Growth",
+      description: "Improve collaboration, communication, and presentation confidence.",
+      icon: MessagesSquare,
+    },
+  ];
+};
+
+const getAdditionalBenefits = (course: Course) => {
+  const weeks = Number.parseInt(course.duration, 10);
+  const accessMonths = Number.isNaN(weeks) ? 6 : Math.max(3, Math.ceil(weeks / 4));
+
+  const dynamicItems = [
+    `${course.duration} guided roadmap with milestone tracking`,
+    `${course.studentCount.toLocaleString()}+ learner community access`,
+    `${accessMonths}-${accessMonths + 3} months LMS content access`,
+    `${course.delivery} support with flexible learning pace`,
+    ...course.perks,
+  ];
+
+  return Array.from(new Set(dynamicItems)).slice(0, 6);
+};
+
+export default function CourseDetailClient({
+  course,
+  instituteSlug,
+  isEnrolled = false,
+  isShortlisted = false,
+  isSignedIn = false,
+}: Props) {
   const DeliveryIcon = deliveryIcon[course.delivery] || Globe;
   const router = useRouter();
   const [enrolling, setEnrolling] = useState(false);
   const [shortlisted, setShortlisted] = useState(isShortlisted);
   const [shortlistLoading, setShortlistLoading] = useState(false);
+  const featureHighlights = getCourseFeatureHighlights(course);
+  const benefitItems = getAdditionalBenefits(course);
 
   const handleEnroll = async () => {
     if (!isSignedIn) {
@@ -141,6 +254,43 @@ export default function CourseDetailClient({ course, isEnrolled = false, isShort
         <div className="grid grid-cols-12 gap-10">
           {/* Main Content */}
           <div className="col-span-8">
+            {/* Course Overview */}
+            <AnimatedSection>
+              <div className="bg-white rounded-2xl p-8 ghost-border mb-14">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <Globe className="w-5 h-5 text-primary" />
+                  </div>
+                  <h2 className="font-heading text-[1.75rem] font-bold tracking-[-0.015em] text-on-surface">
+                    Course Overview
+                  </h2>
+                </div>
+
+                <p className="text-on-surface-variant leading-[1.8] mb-6">
+                  {course.description}
+                </p>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="rounded-xl bg-surface-container-low px-4 py-3">
+                    <p className="text-xs uppercase tracking-[0.16em] text-on-surface-variant mb-1">Level</p>
+                    <p className="font-semibold text-on-surface">{course.level}</p>
+                  </div>
+                  <div className="rounded-xl bg-surface-container-low px-4 py-3">
+                    <p className="text-xs uppercase tracking-[0.16em] text-on-surface-variant mb-1">Duration</p>
+                    <p className="font-semibold text-on-surface">{course.duration}</p>
+                  </div>
+                  <div className="rounded-xl bg-surface-container-low px-4 py-3">
+                    <p className="text-xs uppercase tracking-[0.16em] text-on-surface-variant mb-1">Delivery</p>
+                    <p className="font-semibold text-on-surface">{course.delivery}</p>
+                  </div>
+                  <div className="rounded-xl bg-surface-container-low px-4 py-3">
+                    <p className="text-xs uppercase tracking-[0.16em] text-on-surface-variant mb-1">Language</p>
+                    <p className="font-semibold text-on-surface">{course.language}</p>
+                  </div>
+                </div>
+              </div>
+            </AnimatedSection>
+
             {/* Curriculum */}
             <AnimatedSection>
               <div className="mb-14">
@@ -156,33 +306,128 @@ export default function CourseDetailClient({ course, isEnrolled = false, isShort
                   </span>
                 </div>
 
-                <StaggerChildren className="space-y-3" stagger={0.06}>
-                  {course.curriculum.map((module, i) => (
-                    <div
-                      key={i}
-                      className="group bg-white rounded-2xl p-6 ghost-border card-hover cursor-pointer"
-                    >
-                      <div className="flex items-center gap-5">
-                        <span className="font-heading text-3xl font-extrabold text-surface-container-highest group-hover:text-surface-tint transition-colors duration-300">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <div className="flex-1">
-                          <h3 className="font-heading text-[1.1rem] font-bold text-on-surface group-hover:text-surface-tint transition-colors duration-300">
-                            {module.title}
-                          </h3>
-                          <div className="flex items-center gap-4 text-sm text-on-surface-variant mt-1">
-                            <span className="flex items-center gap-1">
-                              <Clock className="w-3.5 h-3.5" /> {module.duration}
+                <StaggerChildren stagger={0.06}>
+                  <Accordion
+                    type="single"
+                    defaultValue="module-0"
+                    className="space-y-3"
+                  >
+                    {course.curriculum.map((module, i) => (
+                      <AccordionItem
+                        key={i}
+                        value={`module-${i}`}
+                        className="group bg-white rounded-2xl px-6 py-4 ghost-border card-hover"
+                      >
+                        <AccordionTrigger className="hover:no-underline py-1">
+                          <div className="flex items-center gap-5 w-full pr-3">
+                            <span className="font-heading text-3xl font-extrabold text-surface-container-highest group-hover:text-surface-tint transition-colors duration-300">
+                              {String(i + 1).padStart(2, "0")}
                             </span>
-                            <span className="flex items-center gap-1">
-                              <Play className="w-3.5 h-3.5" /> {module.lessons} lessons
-                            </span>
+                            <div className="flex-1">
+                              <h3 className="font-heading text-[1.1rem] font-bold text-on-surface group-hover:text-surface-tint transition-colors duration-300">
+                                {module.title}
+                              </h3>
+                              <div className="flex items-center gap-4 text-sm text-on-surface-variant mt-1">
+                                <span className="flex items-center gap-1">
+                                  <Clock className="w-3.5 h-3.5" /> {module.duration}
+                                </span>
+                                <span className="flex items-center gap-1">
+                                  <Play className="w-3.5 h-3.5" /> {module.lessons} lessons
+                                </span>
+                              </div>
+                            </div>
                           </div>
-                        </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="pt-2 pb-1">
+                          <ul className="space-y-2 pl-2">
+                            {getModuleHighlights(module.title, module.lessons).map((point) => (
+                              <li
+                                key={point}
+                                className="text-sm text-on-surface-variant flex items-start gap-2"
+                              >
+                                <span className="text-surface-tint mt-1">•</span>
+                                <span>{point}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </StaggerChildren>
+              </div>
+            </AnimatedSection>
+
+            {/* Prerequisites */}
+            <AnimatedSection>
+              <div className="bg-white rounded-2xl p-8 ghost-border mb-14">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-warning/10 flex items-center justify-center">
+                    <CheckCircle2 className="w-5 h-5 text-warning" />
+                  </div>
+                  <h2 className="font-heading text-[1.75rem] font-bold tracking-[-0.015em] text-on-surface">
+                    Prerequisites
+                  </h2>
+                </div>
+
+                <ul className="space-y-3">
+                  {getPrerequisites(course).map((item) => (
+                    <li key={item} className="flex items-start gap-3 text-on-surface-variant">
+                      <CheckCircle2 className="w-4 h-4 text-success shrink-0 mt-1" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </AnimatedSection>
+
+            {/* Course Features & Highlights */}
+            <AnimatedSection>
+              <div className="mb-14">
+                <div className="text-center mb-8">
+                  <h2 className="font-heading text-[1.9rem] font-bold tracking-[-0.015em] text-on-surface mb-2">
+                    Course Features & Highlights
+                  </h2>
+                  <p className="text-on-surface-variant">
+                    Everything you need to build practical skills and become job-ready.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
+                  {featureHighlights.map((feature) => (
+                    <div
+                      key={feature.title}
+                      className="bg-white rounded-2xl border border-outline-variant/30 p-5"
+                    >
+                      <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center mb-4">
+                        <feature.icon className="w-5 h-5 text-orange-500" />
                       </div>
+                      <h3 className="font-heading text-lg font-bold text-primary mb-2">
+                        {feature.title}
+                      </h3>
+                      <p className="text-sm text-on-surface-variant leading-6">
+                        {feature.description}
+                      </p>
                     </div>
                   ))}
-                </StaggerChildren>
+                </div>
+
+                <div className="rounded-2xl bg-surface-container-low ghost-border p-6">
+                  <h3 className="font-heading text-2xl font-bold text-on-surface text-center mb-5">
+                    Additional Benefits
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                    {benefitItems.map((benefit) => (
+                      <div
+                        key={benefit}
+                        className="rounded-xl border border-outline-variant/40 bg-surface-container px-4 py-3 text-sm font-medium text-on-surface"
+                      >
+                        <span className="mr-2 text-surface-tint">•</span>
+                        {benefit}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </AnimatedSection>
 
@@ -205,7 +450,16 @@ export default function CourseDetailClient({ course, isEnrolled = false, isShort
                   </div>
                   <div>
                     <h3 className="font-heading text-xl font-bold text-on-surface">{course.instructor}</h3>
-                    <p className="text-sm text-on-surface-variant">{course.institution}</p>
+                    {instituteSlug ? (
+                      <Link
+                        href={`/institutes/${instituteSlug}`}
+                        className="text-sm text-surface-tint font-semibold hover:opacity-80 transition-opacity"
+                      >
+                        {course.institution}
+                      </Link>
+                    ) : (
+                      <p className="text-sm text-on-surface-variant">{course.institution}</p>
+                    )}
                   </div>
                 </div>
               </div>

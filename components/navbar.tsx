@@ -7,7 +7,7 @@ import { Menu, X } from "lucide-react";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 
 const publicLinks = [
-  { label: "Courses", href: "/" },
+  { label: "Courses", href: "/courses" },
   { label: "Institutes", href: "/institutes" },
   { label: "Colleges", href: "/colleges" },
   { label: "Bootcamps", href: "/bootcamps" },
