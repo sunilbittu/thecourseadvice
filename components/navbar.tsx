@@ -3,12 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Search } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 
 const publicLinks = [
   { label: "Courses", href: "/" },
   { label: "Institutes", href: "/institutes" },
+  { label: "Colleges", href: "/colleges" },
+  { label: "Bootcamps", href: "/bootcamps" },
 ];
 
 const studentLinks = [
@@ -66,32 +68,30 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href ||
-                (link.href !== "/" && pathname.startsWith(link.href));
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
-                    isActive
-                      ? "text-surface-tint bg-surface-tint/8"
-                      : "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low"
-                  }`}
-                >
-                  {link.label}
-                  {isActive && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-0.5 bg-surface-tint rounded-full" />
-                  )}
-                </Link>
-              );
-            })}
-          </div>
-
           {/* Right side */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center justify-end gap-4 flex-1">
+            <div className="flex items-center gap-1">
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href ||
+                  (link.href !== "/" && pathname.startsWith(link.href));
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                      isActive
+                        ? "text-surface-tint bg-surface-tint/8"
+                        : "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low"
+                    }`}
+                  >
+                    {link.label}
+                    {isActive && (
+                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-0.5 bg-surface-tint rounded-full" />
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
             {/* <button className="p-2.5 rounded-xl hover:bg-surface-container-high transition-colors text-on-surface-variant hover:text-on-surface">
               <Search className="w-[18px] h-[18px]" />
             </button> */}
