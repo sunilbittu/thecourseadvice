@@ -99,7 +99,7 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
       <SidebarHeader className="px-4 py-4 border-b border-sidebar-border">
         <div className="flex items-center gap-2">
           <Image
-            src="/logo.jpeg"
+            src="/logo.png"
             alt="TheCourseAdvice"
             width={160}
             height={44}
