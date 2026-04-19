@@ -61,22 +61,38 @@ export default function HomeClient({
   return (
     <main className="flex-1 page-enter overflow-x-hidden">
       {/* ─── HERO ─── */}
-      <section className="relative min-h-[78vh] md:min-h-[90vh] flex items-center">
+      <section className="relative min-h-[78vh] md:min-h-[90vh] flex items-center overflow-hidden">
+        {/* Video Background */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source
+            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260306_074215_04640ca7-042c-45d6-bb56-58b1e8a42489.mp4"
+            type="video/mp4"
+          />
+        </video>
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black/55" />
+
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 w-full relative z-10">
           <div className="editorial-margins">
-            <h1 className="font-heading text-4xl sm:text-5xl md:text-[5.5rem] font-extrabold leading-[0.95] tracking-[-0.04em] text-on-surface mb-6 md:mb-8 max-w-4xl">
+            <h1 className="font-heading text-4xl sm:text-5xl md:text-[5.5rem] font-extrabold leading-[0.95] tracking-[-0.04em] text-white mb-6 md:mb-8 max-w-4xl drop-shadow-lg">
               <HeroText text="Discover your path to success" />
             </h1>
 
             <AnimatedSection delay={0.5} y={30}>
-              <p className="text-base sm:text-lg md:text-xl leading-[1.7] text-on-surface-variant max-w-xl mb-8 md:mb-12">
+              <p className="text-base sm:text-lg md:text-xl leading-[1.7] text-white/80 max-w-xl mb-8 md:mb-12">
                 Find the perfect course and institution
               </p>
             </AnimatedSection>
 
             {/* Search */}
             <AnimatedSection delay={0.7} y={30}>
-              <div className="max-w-3xl bg-white rounded-2xl p-2 shadow-editorial ghost-border">
+              <div className="max-w-3xl bg-white/95 backdrop-blur-sm rounded-2xl p-2 shadow-editorial">
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                   <div className="flex-1 flex items-center gap-3 bg-surface-container-low rounded-xl px-4 sm:px-5 py-3 sm:py-4">
                     <Search className="w-5 h-5 text-on-surface-variant shrink-0" />
@@ -106,14 +122,14 @@ export default function HomeClient({
               </div>
             </AnimatedSection>
 
-            {/* Quick Stats — inline text, not icon boxes */}
+            {/* Quick Stats */}
             <AnimatedSection delay={0.9} y={20}>
-              <div className="flex flex-wrap items-center gap-3 sm:gap-8 mt-10 md:mt-14 text-sm text-on-surface-variant">
-                <span><strong className="text-on-surface font-heading"><Counter value={500} suffix="+" /></strong> courses</span>
-                <span className="hidden sm:block w-px h-4 bg-outline-variant/30" />
-                <span><strong className="text-on-surface font-heading"><Counter value={25000} suffix="+" /></strong> students</span>
-                <span className="hidden sm:block w-px h-4 bg-outline-variant/30" />
-                <span><strong className="text-on-surface font-heading"><Counter value={50} suffix="+" /></strong> institutions</span>
+              <div className="flex flex-wrap items-center gap-3 sm:gap-8 mt-10 md:mt-14 text-sm text-white/70">
+                <span><strong className="text-white font-heading"><Counter value={500} suffix="+" /></strong> courses</span>
+                <span className="hidden sm:block w-px h-4 bg-white/30" />
+                <span><strong className="text-white font-heading"><Counter value={25000} suffix="+" /></strong> students</span>
+                <span className="hidden sm:block w-px h-4 bg-white/30" />
+                <span><strong className="text-white font-heading"><Counter value={50} suffix="+" /></strong> institutions</span>
               </div>
             </AnimatedSection>
           </div>
