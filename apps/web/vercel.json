@@ -1,4 +1,5 @@
 {
   "installCommand": "npm install --prefix ../..",
-  "buildCommand": "cd ../.. && npx nx build web"
+  "buildCommand": "cd ../.. && npx nx build web",
+  "outputDirectory": ".next"
 }
