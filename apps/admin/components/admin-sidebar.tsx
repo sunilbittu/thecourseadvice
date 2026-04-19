@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
@@ -97,17 +98,17 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
     <Sidebar>
       <SidebarHeader className="px-4 py-4 border-b border-sidebar-border">
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground text-sm font-bold">
-            CA
-          </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold font-heading leading-none">
-              CourseAdvice
-            </span>
-            <span className="text-xs text-muted-foreground leading-none mt-0.5 capitalize">
-              {role}
-            </span>
-          </div>
+          <Image
+            src="/logo.jpeg"
+            alt="TheCourseAdvice"
+            width={160}
+            height={44}
+            className="h-8 w-auto"
+            priority
+          />
+          <span className="text-xs text-muted-foreground leading-none capitalize">
+            {role}
+          </span>
         </div>
       </SidebarHeader>
 

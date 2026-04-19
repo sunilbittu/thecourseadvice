@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, LogOut, User } from "lucide-react";
 import { useAuth } from "@courseadvice/auth/provider";
@@ -54,18 +55,15 @@ export default function Navbar() {
       >
         <div className="max-w-[1920px] mx-auto px-8 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-surface-tint to-primary flex items-center justify-center">
-              <span className="text-white font-heading font-extrabold text-lg">C</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-heading font-extrabold text-on-surface text-lg leading-none tracking-tight">
-                TheCourseAdvice
-              </span>
-              <span className="text-[9px] font-semibold uppercase tracking-[0.25em] text-on-surface-variant leading-none mt-0.5">
-                Navigate Your Education with Confidence
-              </span>
-            </div>
+          <Link href="/" className="flex items-center group">
+            <Image
+              src="/logo.jpeg"
+              alt="TheCourseAdvice"
+              width={200}
+              height={56}
+              className="h-10 w-auto"
+              priority
+            />
           </Link>
 
           {/* Right side */}
