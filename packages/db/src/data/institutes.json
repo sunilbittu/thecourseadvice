@@ -1,0 +1,307 @@
+[
+  {
+    "id": "inst-1",
+    "slug": "aswini-bajaj-classes",
+    "name": "Aswini Bajaj Classes",
+    "logoUrl": "",
+    "images": [
+      "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "Premier accounting and finance training institute offering classroom, online, and distance education for aspiring professionals.",
+    "address": "Shreenathji Sadan, Opp. Thakur Hall, Kandivali East, Mumbai, Maharashtra, India",
+    "email": "admissions@aswinibajaj.com",
+    "phoneNumbers": ["+91 22 4000 1001", "+91 98765 43210"],
+    "websiteUrl": "https://www.aswinibajaj.com",
+    "socialLinks": {
+      "linkedin": "https://www.linkedin.com",
+      "facebook": "https://www.facebook.com",
+      "instagram": "https://www.instagram.com"
+    },
+    "instituteFeatures": {
+      "cafeteria": "Available",
+      "freeWifi": "Available",
+      "placementFacilities": "Available",
+      "hiringCompanies": [
+        "Kotak Mahindra",
+        "Oxane Partners",
+        "Anaptyss India Pvt. Ltd.",
+        "Valorem Advisors",
+        "Alta Cura Technologies"
+      ],
+      "educationType": ["Classroom", "Distance Education", "Online Training"],
+      "educationLevel": ["Beginner", "Intermediate", "Professional"],
+      "educationSubject": ["Accounting", "Finance and Banking", "Other Subject"],
+      "accreditation": "Global Association of Risk Professionals (GARP) for FRM; trainer credentials include B.Com, CA, CS, CFA, FRM, CAIA, CFP, CIPM, CCRA, CIRA, CIIB, AIM, and RV.",
+      "paymentOption": ["Cash", "Online Payment"],
+      "studyMaterial": "Provided By Institute",
+      "hostelFacilities": "Not Applicable",
+      "entranceTests": "No",
+      "acceptInternationalStudents": "Yes",
+      "library": "Available",
+      "transportFacilities": "Not Available",
+      "sportsAndGymnasium": "Not Available",
+      "listOfCourses": [
+        "Online Courses",
+        "Online Training Institute",
+        "Professional Institute",
+        "Accounting & Finance Institute",
+        "CFA Institute",
+        "Economics Institute",
+        "Finance Institute",
+        "Financial Risk Management Institute",
+        "Microsoft Excel Institute",
+        "Microsoft Office Coaching Centres"
+      ]
+    }
+  },
+  {
+    "id": "inst-2",
+    "slug": "london-school-of-economics",
+    "name": "London School of Economics",
+    "logoUrl": "",
+    "images": [
+      "https://images.unsplash.com/photo-1529429617124-aee711fa1f5f?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1517520287167-4bbf64a00d66?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "Global leader in social sciences and economics with intensive executive learning programs.",
+    "address": "Houghton Street, London WC2A 2AE, United Kingdom",
+    "email": "admissions@lse.ac.uk",
+    "phoneNumbers": ["+44 20 7107 5000", "+44 20 7955 7676"],
+    "websiteUrl": "https://www.lse.ac.uk",
+    "socialLinks": {
+      "linkedin": "https://www.linkedin.com/school/london-school-of-economics",
+      "twitter": "https://x.com/lsenews"
+    },
+    "instituteFeatures": {
+      "cafeteria": "Available",
+      "freeWifi": "Available",
+      "placementFacilities": "Available",
+      "hiringCompanies": ["McKinsey", "Deloitte", "JPMorgan", "EY"],
+      "educationType": ["Classroom", "Online Training"],
+      "educationLevel": ["Intermediate", "Professional"],
+      "educationSubject": ["Finance and Banking", "Other Subject"],
+      "accreditation": "Accredited UK degree and executive education institution.",
+      "paymentOption": ["Online Payment"],
+      "studyMaterial": "Provided By Institute",
+      "hostelFacilities": "Available",
+      "entranceTests": "Yes",
+      "acceptInternationalStudents": "Yes",
+      "library": "Available",
+      "transportFacilities": "Available",
+      "sportsAndGymnasium": "Available",
+      "listOfCourses": ["Executive Finance", "Economics", "Public Policy"]
+    }
+  },
+  {
+    "id": "inst-3",
+    "slug": "mit-professional-education",
+    "name": "MIT Professional Education",
+    "logoUrl": "",
+    "images": [
+      "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1472289065668-ce650ac443d2?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1460518451285-97b6aa326961?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1519452575417-564c1401ecc0?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "Advanced technology and innovation programs designed for global professionals and leaders.",
+    "address": "Cambridge, Massachusetts, USA",
+    "email": "professional@mit.edu",
+    "phoneNumbers": ["+1 617 253 7166", "+1 617 253 0000"],
+    "websiteUrl": "https://professional.mit.edu",
+    "socialLinks": {
+      "linkedin": "https://www.linkedin.com/school/mit-professional-education",
+      "youtube": "https://www.youtube.com"
+    },
+    "instituteFeatures": {
+      "cafeteria": "Available",
+      "freeWifi": "Available",
+      "placementFacilities": "Available",
+      "hiringCompanies": ["Google", "Amazon", "Tesla", "Microsoft"],
+      "educationType": ["Classroom", "Online Training"],
+      "educationLevel": ["Intermediate", "Professional"],
+      "educationSubject": ["Other Subject", "Finance and Banking"],
+      "accreditation": "MIT Professional credentialing and certification pathways.",
+      "paymentOption": ["Online Payment"],
+      "studyMaterial": "Provided By Institute",
+      "hostelFacilities": "Not Applicable",
+      "entranceTests": "No",
+      "acceptInternationalStudents": "Yes",
+      "library": "Available",
+      "transportFacilities": "Available",
+      "sportsAndGymnasium": "Not Available",
+      "listOfCourses": ["AI Strategy", "Systems Engineering", "Data Leadership"]
+    }
+  },
+  {
+    "id": "inst-4",
+    "slug": "national-university-of-singapore",
+    "name": "National University of Singapore",
+    "logoUrl": "",
+    "images": [
+      "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1492538368677-f6e0afe31dcc?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1462536943532-57a629f6cc60?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "Research-driven university with diverse degree and continuing education offerings.",
+    "address": "21 Lower Kent Ridge Rd, Singapore 119077",
+    "email": "admissions@nus.edu.sg",
+    "phoneNumbers": ["+65 6516 6666", "+65 6778 7575"],
+    "websiteUrl": "https://www.nus.edu.sg",
+    "socialLinks": {
+      "linkedin": "https://www.linkedin.com/school/national-university-of-singapore",
+      "instagram": "https://www.instagram.com/nus_singapore"
+    },
+    "instituteFeatures": {
+      "cafeteria": "Available",
+      "freeWifi": "Available",
+      "placementFacilities": "Available",
+      "hiringCompanies": ["DBS", "Grab", "Shopee", "PwC"],
+      "educationType": ["Classroom", "Distance Education", "Online Training"],
+      "educationLevel": ["Beginner", "Intermediate", "Professional"],
+      "educationSubject": ["Accounting", "Finance and Banking", "Other Subject"],
+      "accreditation": "Nationally accredited university programs and executive certifications.",
+      "paymentOption": ["Cash", "Online Payment"],
+      "studyMaterial": "Provided By Institute",
+      "hostelFacilities": "Available",
+      "entranceTests": "Yes",
+      "acceptInternationalStudents": "Yes",
+      "library": "Available",
+      "transportFacilities": "Available",
+      "sportsAndGymnasium": "Available",
+      "listOfCourses": ["Business Analytics", "Accounting", "FinTech", "Operations"]
+    }
+  },
+  {
+    "id": "inst-5",
+    "slug": "eth-zurich",
+    "name": "ETH Zurich",
+    "logoUrl": "",
+    "images": [
+      "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1474511320723-9a56873867b5?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1461727885569-b2ddec0c4328?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1460518451285-97b6aa326961?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "Top-ranked science and technology university known for rigorous research-led engineering and computing programs.",
+    "address": "Raemistrasse 101, 8092 Zurich, Switzerland",
+    "email": "admissions@ethz.ch",
+    "phoneNumbers": ["+41 44 632 1111", "+41 44 632 2000"],
+    "websiteUrl": "https://ethz.ch",
+    "socialLinks": {
+      "linkedin": "https://www.linkedin.com/school/eth-zurich",
+      "instagram": "https://www.instagram.com/ethzurich"
+    },
+    "instituteFeatures": {
+      "cafeteria": "Available",
+      "freeWifi": "Available",
+      "placementFacilities": "Available",
+      "hiringCompanies": ["Google", "UBS", "Accenture", "Siemens"],
+      "educationType": ["Classroom", "Online Training"],
+      "educationLevel": ["Intermediate", "Professional"],
+      "educationSubject": ["Finance and Banking", "Other Subject"],
+      "accreditation": "Swiss federal university with globally recognized engineering and science credentials.",
+      "paymentOption": ["Online Payment"],
+      "studyMaterial": "Provided By Institute",
+      "hostelFacilities": "Available",
+      "entranceTests": "Yes",
+      "acceptInternationalStudents": "Yes",
+      "library": "Available",
+      "transportFacilities": "Available",
+      "sportsAndGymnasium": "Available",
+      "listOfCourses": ["Quantum Computing", "Digital Finance", "Data Engineering"]
+    }
+  },
+  {
+    "id": "inst-6",
+    "slug": "university-of-sydney",
+    "name": "University of Sydney",
+    "logoUrl": "",
+    "images": [
+      "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1474511320723-9a56873867b5?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1477281765962-ef34e8bb0967?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "Comprehensive Australian university delivering business, sustainability, and innovation-focused education.",
+    "address": "Camperdown NSW 2006, Sydney, Australia",
+    "email": "future.students@sydney.edu.au",
+    "phoneNumbers": ["+61 2 8627 1444", "+61 2 9351 2222"],
+    "websiteUrl": "https://www.sydney.edu.au",
+    "socialLinks": {
+      "linkedin": "https://www.linkedin.com/school/university-of-sydney",
+      "facebook": "https://www.facebook.com/sydneyuni"
+    },
+    "instituteFeatures": {
+      "cafeteria": "Available",
+      "freeWifi": "Available",
+      "placementFacilities": "Available",
+      "hiringCompanies": ["Atlassian", "Canva", "Deloitte", "KPMG"],
+      "educationType": ["Classroom", "Online Training", "Distance Education"],
+      "educationLevel": ["Beginner", "Intermediate", "Professional"],
+      "educationSubject": ["Accounting", "Finance and Banking", "Other Subject"],
+      "accreditation": "Australian accredited university programs with global industry partnerships.",
+      "paymentOption": ["Cash", "Online Payment"],
+      "studyMaterial": "Provided By Institute",
+      "hostelFacilities": "Available",
+      "entranceTests": "Yes",
+      "acceptInternationalStudents": "Yes",
+      "library": "Available",
+      "transportFacilities": "Available",
+      "sportsAndGymnasium": "Available",
+      "listOfCourses": ["Sustainable Development", "Digital Marketing", "Business Analytics"]
+    }
+  },
+  {
+    "id": "inst-7",
+    "slug": "paris-school-of-design",
+    "name": "Paris School of Design",
+    "logoUrl": "",
+    "images": [
+      "https://images.unsplash.com/photo-1476490445914-cc5a224f890f?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1460518451285-97b6aa326961?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1519452575417-564c1401ecc0?auto=format&fit=crop&w=1400&q=80"
+    ],
+    "description": "Design-led institute blending user experience, creative leadership, and innovation practice.",
+    "address": "15 Rue de l'Ecole de Medecine, 75006 Paris, France",
+    "email": "admissions@parisdesignschool.com",
+    "phoneNumbers": ["+33 1 42 00 1000", "+33 1 42 00 2000"],
+    "websiteUrl": "https://www.parisdesignschool.com",
+    "socialLinks": {
+      "linkedin": "https://www.linkedin.com",
+      "instagram": "https://www.instagram.com"
+    },
+    "instituteFeatures": {
+      "cafeteria": "Available",
+      "freeWifi": "Available",
+      "placementFacilities": "Available",
+      "hiringCompanies": ["Publicis Groupe", "Accenture Song", "Capgemini", "L'Oreal"],
+      "educationType": ["Classroom", "Online Training"],
+      "educationLevel": ["Beginner", "Intermediate", "Professional"],
+      "educationSubject": ["Other Subject", "Finance and Banking"],
+      "accreditation": "European design and innovation curriculum aligned to international industry standards.",
+      "paymentOption": ["Online Payment", "Cash"],
+      "studyMaterial": "Provided By Institute",
+      "hostelFacilities": "Not Applicable",
+      "entranceTests": "No",
+      "acceptInternationalStudents": "Yes",
+      "library": "Available",
+      "transportFacilities": "Available",
+      "sportsAndGymnasium": "Not Available",
+      "listOfCourses": ["UX Design", "Creative Leadership", "Interaction Design"]
+    }
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "name": "admin",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3001",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@courseadvice/db": "*",
+    "@courseadvice/auth": "*",
+    "@courseadvice/types": "*",
+    "@courseadvice/ui": "*"
+  }
+}

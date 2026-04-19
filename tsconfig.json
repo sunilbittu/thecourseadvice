@@ -13,22 +13,18 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "paths": {
-      "@/*": ["./*"]
+      "@courseadvice/db": ["./packages/db/src/index.ts"],
+      "@courseadvice/db/*": ["./packages/db/src/*"],
+      "@courseadvice/auth": ["./packages/auth/src/auth.ts"],
+      "@courseadvice/auth/*": ["./packages/auth/src/*"],
+      "@courseadvice/types": ["./packages/types/src/index.ts"],
+      "@courseadvice/ui": ["./packages/ui/src/index.ts"],
+      "@courseadvice/ui/*": ["./packages/ui/src/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts",
-    "**/*.mts"
-  ],
-  "exclude": ["node_modules"]
+  "references": [
+    { "path": "./apps/web" },
+    { "path": "./apps/admin" }
+  ]
 }
