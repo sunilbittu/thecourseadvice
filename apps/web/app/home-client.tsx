@@ -61,7 +61,7 @@ export default function HomeClient({
   return (
     <main className="flex-1 page-enter overflow-x-hidden">
       {/* ─── HERO ─── */}
-      <section className="relative min-h-[78vh] md:min-h-[90vh] flex items-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
         {/* Video Background */}
         <video
           autoPlay

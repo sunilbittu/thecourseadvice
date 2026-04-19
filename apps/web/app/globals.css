@@ -174,8 +174,6 @@
 @layer utilities {
   .shadow-editorial {
     box-shadow: 0 20px 40px -15px rgba(19, 27, 46, 0.06);
-    background-color: #fff;
-    
   }
   .shadow-floating {
     box-shadow: 0 25px 50px -12px rgba(19, 27, 46, 0.1);

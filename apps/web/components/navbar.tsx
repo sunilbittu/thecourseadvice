@@ -30,12 +30,17 @@ export default function Navbar() {
   const navRef = useRef<HTMLElement>(null);
   const { isSignedIn, user, signOut } = useAuth();
 
+  const isHome = pathname === "/";
   const role = user?.role ?? "student";
   const navLinks = [
     ...publicLinks,
     ...(isSignedIn ? studentLinks : []),
     ...(isSignedIn && role === "institution-admin" ? adminLinks : []),
   ];
+
+  // On homepage: transparent over video (white text), solid on scroll
+  // On other pages: always solid background with dark text
+  const isTransparent = isHome && !scrolled;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -48,9 +53,9 @@ export default function Navbar() {
       <nav
         ref={navRef}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "glass shadow-editorial py-3"
-            : "bg-transparent py-5"
+          isTransparent
+            ? "bg-transparent py-5"
+            : "bg-white/95 backdrop-blur-md shadow-sm py-3"
         }`}
       >
         <div className="max-w-[1920px] mx-auto px-8 flex items-center justify-between">
@@ -61,7 +66,9 @@ export default function Navbar() {
               alt="TheCourseAdvice"
               width={200}
               height={56}
-              className="h-10 w-auto"
+              className={`h-10 w-auto transition-all duration-300 ${
+                isTransparent ? "brightness-0 invert" : ""
+              }`}
               priority
             />
           </Link>
@@ -77,14 +84,20 @@ export default function Navbar() {
                     key={link.href}
                     href={link.href}
                     className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
-                      isActive
-                        ? "text-surface-tint bg-surface-tint/8"
-                        : "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low"
+                      isTransparent
+                        ? isActive
+                          ? "text-white bg-white/15"
+                          : "text-white/80 hover:text-white hover:bg-white/10"
+                        : isActive
+                          ? "text-surface-tint bg-surface-tint/8"
+                          : "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low"
                     }`}
                   >
                     {link.label}
                     {isActive && (
-                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-0.5 bg-surface-tint rounded-full" />
+                      <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-0.5 rounded-full ${
+                        isTransparent ? "bg-white" : "bg-surface-tint"
+                      }`} />
                     )}
                   </Link>
                 );
@@ -94,17 +107,27 @@ export default function Navbar() {
               <div className="flex items-center gap-3">
                 <Link
                   href="/settings/profile"
-                  className="text-sm font-medium text-on-surface-variant hover:text-on-surface transition-colors"
+                  className={`text-sm font-medium transition-colors ${
+                    isTransparent
+                      ? "text-white/80 hover:text-white"
+                      : "text-on-surface-variant hover:text-on-surface"
+                  }`}
                 >
                   Settings
                 </Link>
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-surface-tint/20 flex items-center justify-center">
-                    <User className="w-4 h-4 text-surface-tint" />
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                    isTransparent ? "bg-white/20" : "bg-surface-tint/20"
+                  }`}>
+                    <User className={`w-4 h-4 ${isTransparent ? "text-white" : "text-surface-tint"}`} />
                   </div>
                   <button
                     onClick={signOut}
-                    className="p-2 rounded-lg hover:bg-surface-container-high transition-colors text-on-surface-variant hover:text-on-surface"
+                    className={`p-2 rounded-lg transition-colors ${
+                      isTransparent
+                        ? "text-white/80 hover:text-white hover:bg-white/10"
+                        : "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high"
+                    }`}
                     title="Sign out"
                   >
                     <LogOut className="w-4 h-4" />
@@ -114,7 +137,11 @@ export default function Navbar() {
             ) : (
               <Link
                 href="/sign-in"
-                className="flex items-center gap-2 pl-3 pr-4 py-2 rounded-xl bg-surface-tint text-white text-sm font-medium hover:opacity-90 transition-opacity"
+                className={`flex items-center gap-2 pl-3 pr-4 py-2 rounded-xl text-sm font-medium transition-opacity ${
+                  isTransparent
+                    ? "bg-white text-on-surface hover:opacity-90"
+                    : "bg-surface-tint text-white hover:opacity-90"
+                }`}
               >
                 Sign In
               </Link>
@@ -123,7 +150,11 @@ export default function Navbar() {
 
           {/* Mobile toggle */}
           <button
-            className="md:hidden p-2 rounded-xl hover:bg-surface-container-high transition-colors"
+            className={`md:hidden p-2 rounded-xl transition-colors ${
+              isTransparent
+                ? "text-white hover:bg-white/10"
+                : "hover:bg-surface-container-high"
+            }`}
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -136,7 +167,7 @@ export default function Navbar() {
             mobileOpen ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <div className="px-8 pb-6 pt-2 space-y-1">
+          <div className={`px-8 pb-6 pt-2 space-y-1 ${isTransparent ? "bg-black/40 backdrop-blur-md" : ""}`}>
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -145,9 +176,13 @@ export default function Navbar() {
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   className={`block px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
-                    isActive
-                      ? "text-surface-tint bg-surface-tint/8"
-                      : "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low"
+                    isTransparent
+                      ? isActive
+                        ? "text-white bg-white/15"
+                        : "text-white/80 hover:text-white hover:bg-white/10"
+                      : isActive
+                        ? "text-surface-tint bg-surface-tint/8"
+                        : "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low"
                   }`}
                 >
                   {link.label}
@@ -158,7 +193,11 @@ export default function Navbar() {
               {isSignedIn ? (
                 <button
                   onClick={signOut}
-                  className="w-full py-3 rounded-xl bg-surface-container-high text-on-surface text-sm font-medium flex items-center justify-center gap-2"
+                  className={`w-full py-3 rounded-xl text-sm font-medium flex items-center justify-center gap-2 ${
+                    isTransparent
+                      ? "bg-white/15 text-white"
+                      : "bg-surface-container-high text-on-surface"
+                  }`}
                 >
                   <LogOut className="w-4 h-4" />
                   Sign Out
@@ -166,7 +205,11 @@ export default function Navbar() {
               ) : (
                 <Link
                   href="/sign-in"
-                  className="block w-full py-3 rounded-xl bg-surface-tint text-white text-sm font-medium text-center"
+                  className={`block w-full py-3 rounded-xl text-sm font-medium text-center ${
+                    isTransparent
+                      ? "bg-white text-on-surface"
+                      : "bg-surface-tint text-white"
+                  }`}
                 >
                   Sign In
                 </Link>
@@ -176,8 +219,8 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Spacer */}
-      <div className="h-20" />
+      {/* Spacer — only on non-homepage pages since hero goes behind navbar */}
+      {!isHome && <div className="h-20" />}
     </>
   );
 }
